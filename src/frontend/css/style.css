@@ -1,0 +1,32 @@
+header {
+    background-color: #629170; 
+}
+body {
+    background-color: bisque; 
+}
+h1 {
+    font-weight: bold;
+    /* color: #dedf92;  */
+    color: bisque;
+    text-shadow: 1px 1px 0 #dedf98; 
+}
+
+.horizontal-list {
+	list-style-type: none; /* Прибирає крапки */
+	padding: 0; /* Прибирає відступи */
+	margin: 0; /* Прибирає зовнішні відступи */
+	display: flex; /* Робить список горизонтальним */
+}
+
+.horizontal-list li {
+	margin-right: 20px; /* Відстань між елементами (можна змінити за потребою) */
+}
+.horizontal-list li a {
+	text-decoration: none; /* Прибирає підкреслення */
+	color: inherit; /* Спадковий колір */
+	transition: color 0.3s ease; /* Додає плавний перехід кольору */
+}
+
+.horizontal-list li a:hover {
+	color: #007BFF; /* Колір при наведенні (можна змінити на потрібний) */
+}  
