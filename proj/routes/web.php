@@ -7,14 +7,9 @@ Route::get('/', function () {
     return view('main');
 });
 //маршрут з анонімною функцією , просто повертає певну в'юху
-Route::get('/profile', function () {
-    return view('profile'); // Сторінка профілю
-})->name('profile');
-
-Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 Route::get('/search', function () {
-    return view('main'); // Сторінка пошуку
+    return view('search.search'); // Сторінка пошуку
 })->name('search');
 
 Route::get('/cart', function () {
@@ -22,7 +17,7 @@ Route::get('/cart', function () {
 })->name('cart');
 
 Route::get('/categories', function () {
-    return view('categories'); // Сторінка категорій
+    return view('search.search'); // Сторінка категорій
 })->name('categories');
 
 Route::get('/', function () {
@@ -35,3 +30,15 @@ Route::get('/search/results', function () {
     // Додай логіку для обробки пошукового запиту та повернення результатів.
     return view('search.results', ['query' => $query]); // Передаємо пошуковий запит у в'юху
 })->name('search.results');
+
+
+//додай свій контролер
+Route::get('/profile', function () {
+    return view('profile'); // Сторінка профілю
+})->name('profile');
+
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::get('/register', function () {
+    return view('register');
+})->name('register');
