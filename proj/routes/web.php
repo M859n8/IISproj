@@ -32,13 +32,16 @@ Route::get('/search/results', function () {
 })->name('search.results');
 
 
-//додай свій контролер
+
 Route::get('/profile', function () {
-    return view('profile'); // Сторінка профілю
+    return view('profile'); // Сторінка профілю, якщо юзер в дб
 })->name('profile');
 
+//це не потрібно
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 Route::get('/register', function () {
     return view('register');
 })->name('register');
+
+Route::post('/profile', [ProfileController::class, 'regProfile'])->name('regProfile');

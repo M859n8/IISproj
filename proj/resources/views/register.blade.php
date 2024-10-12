@@ -117,7 +117,7 @@
     <div class="container">
         <h2>User Registration</h2>
 
-        <form action="{{ route('register') }}" method="POST">
+        <form action="{{ route('regProfile') }}" method="POST">
             @csrf
 
             <!-- Ім'я -->

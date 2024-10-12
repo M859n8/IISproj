@@ -17,7 +17,7 @@ class ProfileController extends Controller
         
     }
 
-    public function register(Request $request){
+    public function regProfile(Request $request){
         // Валідація даних
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -37,6 +37,6 @@ class ProfileController extends Controller
             // 'password' => Hash::make($request->password), // Хешування пароля
         ]);
 
-        return redirect()->route('home')->with('success', 'Registration successful!');
+        return redirect()->route('profile')->with('success', 'Registration successful!');
     }
 }
