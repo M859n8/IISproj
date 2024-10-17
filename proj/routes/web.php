@@ -2,15 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchProductController;
 
 Route::get('/', function () {
     return view('main');
 });
 //маршрут з анонімною функцією , просто повертає певну в'юху
 
-Route::get('/search', function () {
-    return view('search.search'); // Сторінка пошуку
-})->name('search');
+
 
 Route::get('/cart', function () {
     return view('cart'); // Сторінка кошика
@@ -45,3 +44,9 @@ Route::get('/register', function () {
 })->name('register');
 
 Route::post('/profile', [ProfileController::class, 'regProfile'])->name('regProfile');
+
+// Route::get('/search', function () {
+//     return view('search.search'); // Сторінка пошуку
+// })->name('search');
+
+Route::get('/search',[SearchProductController::class, 'search'])->name('search');

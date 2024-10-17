@@ -107,7 +107,7 @@
     <!-- Пошукова форма -->
     <section class="search-section">
         <h2>Find your product</h2>
-        <form action="{{ route('search.results') }}" method="GET">
+        <form action="{{ route('search') }}" method="GET">
             <!-- Вибір категорії -->
             <label for="category">Select Category:</label>
             <select id="category" name="category">
@@ -126,6 +126,15 @@
             <!-- Кнопка пошуку -->
             <button type="submit">Search</button>
         </form>
+        @if($products->isNotEmpty())
+            <ul>
+                @foreach ($products as $product)
+                    <li>{{ $product->name }} - {{ $product->price }} грн</li>
+                @endforeach
+            </ul>
+        @else
+            <p>Нічого не знайдено</p>
+        @endif
     </section>
 </body>
 </html>
