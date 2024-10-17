@@ -16,6 +16,6 @@ class SearchProductController extends Controller
             $products = Product::where('name', 'LIKE', "%{$query}%")->get();
 
             // Повернути результати на сторінку
-            return view('products.search', compact('products'));
+            return view('search.search', compact('products'));
         }
 }
