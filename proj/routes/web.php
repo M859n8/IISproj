@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchProductController;
 
 Route::get('/', function () {
@@ -32,18 +33,29 @@ Route::get('/search/results', function () {
 
 
 
-Route::get('/profile', function () {
-    return view('profile'); // Сторінка профілю, якщо юзер в дб
-})->name('profile');
+// Route::get('/profile', function () {
+//     return view('profile'); // Сторінка профілю, якщо юзер в дб
+// })->name('profile');
+// Route::get('/profile', [RegistrationController::class, 'showProfile'])->name('profile');
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/profile', [RegistrationController::class, 'showProfile'])->name('profile');
+// });
+
 
 //це не потрібно
-Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('/profile/update', [RegistrationController::class, 'update'])->name('profile.update');
 
 Route::get('/register', function () {
     return view('register');
 })->name('register');
 
-Route::post('/profile', [ProfileController::class, 'regProfile'])->name('regProfile');
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::post('/login', [LoginController::class, 'loginClick'])->name('loginClick');
+
+Route::post('/register', [RegistrationController::class, 'regProfile'])->name('regProfile');
 
 // Route::get('/search', function () {
 //     return view('search.search'); // Сторінка пошуку

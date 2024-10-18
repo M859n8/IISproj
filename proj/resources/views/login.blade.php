@@ -96,20 +96,7 @@
             background-color: #50735b;
         }
 
-        .text-right {
-            text-align: right; /* Вирівнювання тексту вправо */
-        }
 
-        #login-link {
-            color: #629170; /* Зелений колір */
-            text-decoration: underline; /* Підкреслення */
-            font-weight: bold; /* Жирний текст */
-            cursor: pointer; /* Курсор при наведенні */
-        }
-
-        #login-link:hover {
-            color: #50735b; /* Темніший зелений при наведенні */
-        }
 
     </style>
 </head>
@@ -128,29 +115,10 @@
         </nav>
     </header>
     <div class="container">
-        <h2>User Registration</h2>
+        <h2>User Authentication</h2>
 
-        <form id="user-form" action="{{ route('regProfile') }}" method="POST">
+        <form action="{{ route('loginClick') }}" method="POST">
             @csrf
-
-
-            <!-- Фамілія -->
-            <div class="form-group">
-                <label for="name">Surname</label>
-                <input type="text" name="surname" id="surname" value="{{ old('surname') }}" required autofocus>
-                @error('surname')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- Ім'я -->
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus>
-                @error('name')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
 
             <!-- Електронна пошта -->
             <div class="form-group">
@@ -170,34 +138,11 @@
                 @enderror
             </div>
 
-            <!-- Підтвердження пароля -->
+            <!-- Кнопка логіну -->
             <div class="form-group">
-                <label for="password_confirmation">Confirm Password</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" required>
-                @error('password_confirmation')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+                <button type="submit" class="btn">Login</button>
             </div>
-
-            <!-- Кнопка реєстрації -->
-            <div class="form-group">
-                <button type="submit" class="btn">Register</button>
-            </div>
-
-            <!-- Кнопка логіну
-            <div class="form-group">
-                <button type="button" id="login-btn" class="btn btn-secondary">Login</button>
-            </div> -->
         </form>
-        <!-- Кнопка логіну -->
-        <div class="form-group text-right">
-            <a href="{{ route('login') }}" id="login-link">Login</a>
-        </div>
-        <!-- <script>
-            document.getElementById('login-btn').addEventListener('click', function() {
-                window.location.href = "{{ route('login') }}"; // Перенаправлення на сторінку логіну
-            });
-        </script> -->
     </div>
 </body>
 </html>
