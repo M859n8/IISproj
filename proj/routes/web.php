@@ -50,3 +50,7 @@ Route::post('/profile', [ProfileController::class, 'regProfile'])->name('regProf
 // })->name('search');
 
 Route::get('/search',[SearchProductController::class, 'search'])->name('search');
+
+Route::get('/product', function () {
+    return view('product');
+})->name('productPage');

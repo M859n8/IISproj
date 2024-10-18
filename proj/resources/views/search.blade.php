@@ -14,12 +14,14 @@
         }
 
         header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color:  #629170; /* Сіро-зелений фон */
-            padding: 15px 0;
-            z-index: 1000;
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+           position: fixed;
+           top: 0;
+           width: 100%;
+           background-color: #629170; /* Замінив зелений на сіро-зелений */
+           z-index: 1000;
         }
 
         .horizontal-list {
@@ -40,17 +42,18 @@
         }
 
         .horizontal-list a:hover {
-            text-decoration: underline;
+            color: white;
         }
 
         /* Пошукова форма */
         .search-section {
-            margin-top: 100px; /* Відступ зверху після меню */
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 50%;
-            margin: 100px auto;
+            width: 80%;
+            margin: auto;
+            margin-top: 100px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
@@ -61,8 +64,9 @@
 
         .search-section form {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
+            gap: 10px;
         }
 
         .search-section select,
@@ -86,17 +90,84 @@
         .search-section button:hover {
             background-color: #50735b;
         }
+        .result-section {
+            margin-top: 10px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .product-table {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .table-header, .product-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .table-header {
+            font-weight: bold;
+            background-color: #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        .table-header span, .product-row span, .product-row a {
+            padding: 5px 10px;
+        }
+        .table-header span {
+            padding: 5px 10px;
+            /* Використовуємо ті ж значення flex-grow для відповідних колонок */
+            flex-grow: 2; /* Для назви продукту */
+        }
+
+        .table-header .description-header {
+            flex-grow: 4; /* Для опису продукту */
+        }
+
+        .table-header .price-header{
+            flex-grow: 1; /* Для ціни і категорії */
+        }
+
+        .product-name {
+            font-weight: bold;
+            color: black;
+            text-decoration: none;
+            flex-grow: 2; /* Назва продукту */
+        }
+
+        .product-name:hover {
+            text-decoration: underline;
+        }
+
+        .product-description {
+            color: #666;
+            flex-grow: 4; /* Опис продукту – більше місця */
+        }
+
+        .product-price {
+            color: #999;
+            flex-grow: 1; /* Ціна продукту */
+        }
+
+
+
 
     </style>
 </head>
 <body>
     <!-- Меню зверху -->
     <header>
-        <h1>Green Market</h1>
         <nav>
             <ul class="horizontal-list">
-                <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Your profile</a></li>
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{{ route('regProfile') }}"><i class="fas fa-user"></i> Your profile</a></li>
                 <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
                 <li><a href="{{ route('categories') }}"><i class="fas fa-list-ul"></i> Categories</a></li>
             </ul>
@@ -109,7 +180,6 @@
         <h2>Find your product</h2>
         <form action="{{ route('search') }}" method="GET">
             <!-- Вибір категорії -->
-            <label for="category">Select Category:</label>
             <select id="category" name="category">
                 <option value="">All Categories</option>
                 <option value="fruits">Fruits</option>
@@ -120,21 +190,33 @@
             </select>
 
             <!-- Пошук товару -->
-            <label for="search">Search Product:</label>
             <input type="text" id="search" name="query" placeholder="Enter product name">
 
             <!-- Кнопка пошуку -->
             <button type="submit">Search</button>
         </form>
+
+    </section>
+    <section class="result-section">
         @if($products->isNotEmpty())
-            <ul>
+            <div class="product-table">
+                <div class="table-header">
+                    <span class="name-header">Назва</span>
+                    <span class="description-header">Опис</span>
+                    <span class="price-header">Ціна</span>
+                </div>
                 @foreach ($products as $product)
-                    <li>{{ $product->name }} - {{ $product->price }} грн</li>
+                    <div class="product-row">
+                        <a href="{{ route('productPage', $product->id) }}" class="product-name">{{ $product->name }}</a>
+                        <span class="product-description">{{ $product->description }}</span>
+                        <span class="product-price">{{ $product->price }} грн</span>
+                    </div>
                 @endforeach
-            </ul>
+            </div>
         @else
-            <p>Нічого не знайдено</p>
+            <p>Not found</p>
         @endif
     </section>
+
 </body>
 </html>
