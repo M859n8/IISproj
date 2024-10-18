@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        // НЕ ПРОПИСАНІ ЗВЯЗКИ
+        Schema::create('category_offers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->unsignedBigInteger('category_id'); // Зовнішній ключ для зв'язку з категоріями
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->decimal('price', 8, 2);
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('category_offers');
     }
 };
