@@ -4,8 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Profile</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        header {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #629170; /* Зелений колір для меню */
+            z-index: 1000;
+        }
+
+        .horizontal-list {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .horizontal-list li {
+            margin: 0 15px;
+        }
+
+        .horizontal-list a {
+            color: #c4cfc9; /* Замінив білий на сіруватий */
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .horizontal-list a:hover {
+            color: white;
+        }
+
+        main {
+            margin-top: 100px; /* Відступ для закріпленого меню */
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #629170;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #50735b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #629170;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -23,17 +116,10 @@
     <main>
         <section>
             <h2>Profile Information</h2>
-            <p><strong>Name:</strong> John Doe</p>
-            <p><strong>Email:</strong> john.doe@example.com</p>
-            <p><strong>Joined:</strong> January 1, 2024</p>
-        </section>
-
-        <section>
-            <h2>Order History</h2>
-            <ul>
-                <li>Order #12345 - 2 Apples, 1 Banana - Total: $10.00</li>
-                <li>Order #12346 - 3 Oranges, 1 Mango - Total: $15.50</li>
-            </ul>
+            <p><strong>Surname:</strong> {{ $user->surname }}</p>
+            <p><strong>Name:</strong> {{ $user->name }}</p>
+            <p><strong>Email:</strong> {{ $user->email }}</p>
+            <p><strong>Joined:</strong> {{ $user->created_at->format('F j, Y') }}</p>
         </section>
 
         <section>
@@ -41,9 +127,11 @@
             <form action="{{ route('profile.update') }}" method="POST">
                 @csrf
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="John Doe">
+                <input type="text" id="name" name="name" value="{{ $user->name }}" required>
+                
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="john.doe@example.com">
+                <input type="email" id="email" name="email" value="{{ $user->email }}" required>
+                
                 <button type="submit">Update Profile</button>
             </form>
         </section>
