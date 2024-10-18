@@ -10,11 +10,27 @@ use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
-    //треба буде реалізувати оновлення на осонові бд
     public function update(Request $request)
     {
-        // // Логіка оновлення профілю
-        return redirect()->back()->with('status', 'Profile updated!');
+        $request->validate([
+            'surname' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            // 'email' => 'required|email|max:255|unique:users,email,' . $request->email, // Перевіряємо, що новий email унікальний, крім поточного користувача
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if ($user) {
+            // Оновлюємо дані користувача
+            $user->surname = $request->surname;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            
+            // Зберігаємо зміни
+            $user->save();
+    
+            return view('profile', compact('user'));
+        }
         
     }
 
@@ -39,6 +55,7 @@ class RegistrationController extends Controller
         } else {
             // Якщо користувач не існує, створити нового
             $user = User::create([
+                'surname' => $request->surname,
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => $request->password,

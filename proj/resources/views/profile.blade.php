@@ -6,6 +6,13 @@
     <title>Your Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        body {
+            margin: 0; /* Прибираємо відступи у всьому документі */
+            padding: 0;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Прибираємо горизонтальне прокручування */
+        }
+
         header {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -102,7 +109,6 @@
 </head>
 <body>
     <header>
-        <h1>Your Profile</h1>
         <nav>
             <ul class="horizontal-list">
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
@@ -126,11 +132,16 @@
             <h2>Edit Profile</h2>
             <form action="{{ route('profile.update') }}" method="POST">
                 @csrf
+                <input type="hidden" name="email" value="{{ $user->email }}">
+
+                <label for="surname">Surname:</label>
+                <input type="text" id="surname" name="surname" value="{{ $user->surname }}" required>
+
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" value="{{ $user->name }}" required>
                 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="{{ $user->email }}" required>
+                <!-- <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ $user->email }}" required> -->
                 
                 <button type="submit">Update Profile</button>
             </form>
