@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchProductController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('main');
@@ -63,6 +64,4 @@ Route::post('/register', [RegistrationController::class, 'regProfile'])->name('r
 
 Route::get('/search',[SearchProductController::class, 'search'])->name('search');
 
-Route::get('/product', function () {
-    return view('product');
-})->name('productPage');
+Route::get('/product/{id}', [ProductController::class, 'showProduct'])->name('productPage');

@@ -182,11 +182,11 @@
             <!-- Вибір категорії -->
             <select id="category" name="category">
                 <option value="">All Categories</option>
-                <option value="fruits">Fruits</option>
-                <option value="vegetables">Vegetables</option>
-                <option value="dairy">Dairy</option>
-                <option value="bakery">Bakery</option>
-                <!-- Додати інші категорії за потреби -->
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
             </select>
 
             <!-- Пошук товару -->
@@ -198,7 +198,7 @@
 
     </section>
     <section class="result-section">
-        @if($products->isNotEmpty())
+        @if(isset($products) && $products->isNotEmpty())
             <div class="product-table">
                 <div class="table-header">
                     <span class="name-header">Назва</span>
@@ -209,11 +209,11 @@
                     <div class="product-row">
                         <a href="{{ route('productPage', $product->id) }}" class="product-name">{{ $product->name }}</a>
                         <span class="product-description">{{ $product->description }}</span>
-                        <span class="product-price">{{ $product->price }} грн</span>
+                        <span class="product-price">{{ $product->price }} $</span>
                     </div>
                 @endforeach
             </div>
-        @else
+        @elseif(isset($products))
             <p>Not found</p>
         @endif
     </section>
