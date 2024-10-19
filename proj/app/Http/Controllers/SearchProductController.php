@@ -25,7 +25,10 @@ class SearchProductController extends Controller
         // Якщо обрана категорія
         $categoryId = $request->input('category');
         if ($categoryId) {
-            $productsQuery->where('category_id', $categoryId);
+            // Шукаемо в обеднаній таблиці категорій та продуктів
+            $productsQuery->whereHas('category', function ($subQuery) use ($categoryId) {
+                $subQuery->where('categories.id', $categoryId);
+            });
         }
 
         // Отримати результати пошуку

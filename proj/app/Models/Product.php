@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'price', 'category', 'category_id'];
+    protected $fillable = ['name', 'description', 'price', 'category'];
 
     // Звязок з категорією
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class, 'category_product');
+        // return $this->belongsTo(Category::class);
     }
 }

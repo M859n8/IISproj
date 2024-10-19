@@ -8,10 +8,12 @@ class Category extends Model
 {
     protected $fillable = ['name', 'parent_id'];
 
-    // Зв'язок з товарами
+    // Зв'язок з товарами (багато до багатьох)
     public function products()
     {
-        return $this->hasMany(Product::class);
+        // return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'category_product');
+        // return $this->hasMany(Product::class);
     }
 
     // Зв'язок з підкатегоріями

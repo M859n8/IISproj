@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('category_id'); // Зовнішній ключ для зв'язку з категоріями
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            // $table->unsignedBigInteger('category_id'); // Зовнішній ключ для зв'язку з категоріями
+            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->decimal('price', 8, 2);
             $table->timestamps();
         });
