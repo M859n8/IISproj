@@ -7,3 +7,10 @@ bootstrap - рендерінг? і коніфгураційні фацли (сп
 	routes -  Laravel’s routing configuration (спитати? нам не потрібно ?)
 	storage - Temporary and cache files, (що такого зберігається тут, що не може зберігатися в базі даних?)
 	vendor - залежності, всі завантажені бібліотеки будуть тут 
+
+## Commands
+php artisan serve -- start the proj
+http://localhost:8000/ -- open link
+
+php artisan migrate  --створить таблиці
+php artisan db:seed  -- seeders
