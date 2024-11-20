@@ -64,46 +64,6 @@
             margin: 0;
         }
 
-        /* Стилі для пошукової секції */
-        .search-section {
-            padding: 50px;
-            margin-top: 20px;
-            background-color: #fff;
-        }
-
-        .search-section h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .search-section form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .search-section input[type="text"] {
-            padding: 10px;
-            width: 50%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .search-section button {
-            padding: 10px 20px;
-            margin-left: 10px;
-            background-color: #629170; /* Замінив зелений на сіро-зелений */
-            color: #c4cfc9; /* Замінив білий на сіруватий */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .search-section button:hover {
-            background-color: #50735b; /* Трохи темніший відтінок сіро-зеленого для ефекту при наведенні */
-        }
 
     </style>
 </head>
@@ -115,7 +75,7 @@
                 <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
                 <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
-                <li><a href="{{ route('categories') }}"><i class="fas fa-list-ul"></i> Categories</a></li>
+                <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
             </ul>
         </nav>
     </header>
@@ -127,14 +87,7 @@
             <h1>Green Market</h1>
         </section>
 
-        <!-- Блок пошуку (з'являється при кліку на "Search") -->
-        <section id="search" class="search-section">
-            <h2>Search</h2>
-            <form action="{{ route('search.results') }}" method="GET">
-                <input type="text" name="query" placeholder="Search for products..." required>
-                <button type="submit">Search</button>
-            </form>
-        </section>
+
     </main>
 
     <footer>

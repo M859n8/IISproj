@@ -12,6 +12,8 @@ class SearchProductController extends Controller
     {
         // Отримати всі категорії з бази даних
         $categories = Category::all();
+        // Створюємо дерево категорій
+        $tree = $this->buildTree($categories);
 
         // Створити базовий запит для пошуку продуктів
         $productsQuery = Product::query();
@@ -35,6 +37,18 @@ class SearchProductController extends Controller
         $products = $productsQuery->get();
 
         // Повернути форму і результати на ту ж саму сторінку
-        return view('search', compact('categories', 'products'));
+        return view('search', ['categories' => $tree, 'products' => $products]);
+    }
+    // Функція для побудови дерева категорій
+    private function buildTree($categories, $parentId = null)
+    {
+        $tree = [];
+        foreach ($categories as $category) {
+            if ($category->parent_id == $parentId) {
+                $category->children = $this->buildTree($categories, $category->id);
+                $tree[] = $category;
+            }
+        }
+        return $tree;
     }
 }

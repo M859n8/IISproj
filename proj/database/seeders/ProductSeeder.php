@@ -15,9 +15,14 @@ class ProductSeeder extends Seeder
     {
         // Створення продуктів
         $apple = Product::create([
-            'name' => 'Apple',
+            'name' => 'Apple Gala green',
             'description' => 'Fresh red apples from the local farm.',
             'price' => 15.99,
+        ]);
+        $apple1 = Product::create([
+            'name' => 'Apple Gala red',
+            'description' => 'Fresh red apples from the local farm.',
+            'price' => 14.99,
         ]);
 
         $broccoli = Product::create([
@@ -45,7 +50,9 @@ class ProductSeeder extends Seeder
         ]);
 
         // Продукти та категорії (багато до багатьох)
-        $apple->category()->attach([1, 5]); // Apple належить до категорій Fruits і Apples
+        $apple->category()->attach([1, 5, 8]); // Apple належить до категорій Fruits і Apples
+        $apple1->category()->attach([1, 5, 8]); // Apple належить до категорій Fruits і Apples
+
         $broccoli->category()->attach(2);         // Broccoli належить до категорії Vegetables
         $milk->category()->attach(3);                  // Milk належить до категорії Dairy Products
         $bread->category()->attach(4);                // Bread належить до категорії Bakery

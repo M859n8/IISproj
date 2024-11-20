@@ -11,19 +11,21 @@ Route::get('/', function () {
 });
 //маршрут з анонімною функцією , просто повертає певну в'юху
 
-
+Route::get('/', function () {
+    return view('main');
+})->name('main');
 
 Route::get('/cart', function () {
     return view('cart'); // Сторінка кошика
 })->name('cart');
 
-Route::get('/categories', function () {
-    return view('search.search'); // Сторінка категорій
-})->name('categories');
+// Route::get('/addproduct', function () {
+//     return view('addproduct');
+// })->name('addproduct');
 
-Route::get('/', function () {
-    return view('main'); // Сторінка кошика
-})->name('main');
+
+Route::get('/search',[SearchProductController::class, 'search'])->name('search');
+
 
 //взаємодія з дб??
 Route::get('/search/results', function () {
@@ -31,6 +33,11 @@ Route::get('/search/results', function () {
     // Додай логіку для обробки пошукового запиту та повернення результатів.
     return view('search.results', ['query' => $query]); // Передаємо пошуковий запит у в'юху
 })->name('search.results');
+
+
+Route::get('/product/{id}', [ProductController::class, 'showProduct'])->name('productPage');
+Route::get('/addproduct', [ProductController::class, 'showCreateForm'])->name('addproduct'); //shows page
+Route::post('/addproduct', [ProductController::class, 'createProduct'])->name('createProduct'); //add product to db
 
 
 
@@ -62,6 +69,3 @@ Route::post('/register', [RegistrationController::class, 'regProfile'])->name('r
 //     return view('search.search'); // Сторінка пошуку
 // })->name('search');
 
-Route::get('/search',[SearchProductController::class, 'search'])->name('search');
-
-Route::get('/product/{id}', [ProductController::class, 'showProduct'])->name('productPage');

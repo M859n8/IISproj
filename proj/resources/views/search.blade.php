@@ -167,25 +167,25 @@
         <nav>
             <ul class="horizontal-list">
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="{{ route('regProfile') }}"><i class="fas fa-user"></i> Your profile</a></li>
+                <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
                 <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
-                <li><a href="{{ route('categories') }}"><i class="fas fa-list-ul"></i> Categories</a></li>
+                <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
             </ul>
         </nav>
 
     </header>
 
     <!-- Пошукова форма -->
+    <!-- Пошукова форма -->
     <section class="search-section">
         <h2>Find your product</h2>
+
         <form action="{{ route('search') }}" method="GET">
             <!-- Вибір категорії -->
             <select id="category" name="category">
                 <option value="">All Categories</option>
                 @foreach($categories as $category)
-                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
-                        {{ $category->name }}
-                    </option>
+                    @include('partials.category-option', ['category' => $category, 'level' => 0])
                 @endforeach
             </select>
 
@@ -195,8 +195,8 @@
             <!-- Кнопка пошуку -->
             <button type="submit">Search</button>
         </form>
-
     </section>
+
     <section class="result-section">
         @if(isset($products) && $products->isNotEmpty())
             <div class="product-table">
@@ -217,6 +217,7 @@
             <p>Not found</p>
         @endif
     </section>
+
 
 </body>
 </html>

@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
+    <title>Add new product</title>
     <style>
 
         header {
@@ -96,6 +96,20 @@
             background-color: #50735b;
         }
 
+        .text-right {
+            text-align: right; /* Вирівнювання тексту вправо */
+        }
+
+        #login-link {
+            color: #629170; /* Зелений колір */
+            text-decoration: underline; /* Підкреслення */
+            font-weight: bold; /* Жирний текст */
+            cursor: pointer; /* Курсор при наведенні */
+        }
+
+        #login-link:hover {
+            color: #50735b; /* Темніший зелений при наведенні */
+        }
 
 
     </style>
@@ -108,42 +122,54 @@
         <nav>
             <ul class="horizontal-list">
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
                 <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
-                <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
 
             </ul>
         </nav>
     </header>
     <div class="container">
-        <h2>User Authentication</h2>
+        <h2>Add new product</h2>
 
-        <form action="{{ route('loginClick') }}" method="POST">
+        <form action="{{ route('createProduct') }}" method="POST">
             @csrf
-
-            <!-- Електронна пошта -->
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" value="{{ old('email') }}" required>
-                @error('email')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+                <label for="name">Name: *</label>
+                <input type="text" id="name" name="name"  required >
+
+            </div>
+            <div class="form-group">
+                <label for="price">Price: *</label>
+                <input type="number" id="price" name="price" min="0"  required>
+
             </div>
 
-            <!-- Пароль -->
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" required>
-                @error('password')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description"  >
+
             </div>
 
-            <!-- Кнопка логіну -->
             <div class="form-group">
-                <button type="submit" class="btn">Login</button>
+                 <label for="category">Categories:</label>
+
+
+                 <select id="category" name="category_id">
+                     <option value="">Select category</option>
+                     @foreach($categories as $category)
+                         @include('partials.category-option', ['category' => $category, 'level' => 0])
+                     @endforeach
+                 </select>
             </div>
+
+
+
+            <div class="form-group">
+            <button type="submit" class="btn">Create Product</button>
+            </div>
+
+
         </form>
-    </div>
 </body>
 </html>

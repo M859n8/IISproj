@@ -15,18 +15,18 @@ class CategorySeeder extends Seeder
     {
         $fruits = Category::create(['name' => 'Fruits']); // 1
 
-        Category::create([
-            'name' => 'Vegetables', // ID 2
-        ]);
+        Category::create(['name' => 'Vegetables']);
 
-        Category::create([
-            'name' => 'Dairy Products', // ID 3
-        ]);
+        Category::create(['name' => 'Dairy Products']); //id 3
 
-        Category::create([
-            'name' => 'Bakery', // ID 4
-        ]);
+        $bakery = Category::create(['name' => 'Bakery']); //id 4
 
-        Category::create(['name' => 'Apples', 'parent_id' => $fruits->id]); // 5
+        $apple = Category::create(['name' => 'Apples', 'parent_id' => $fruits->id]); // 5
+        Category::create(['name' => 'Banana', 'parent_id' => $fruits->id]);
+        Category::create(['name' => 'Orange', 'parent_id' => $fruits->id]);
+
+        // Продукти
+        Category::create(['name' => 'Apples Gala', 'parent_id' => $apple->id]); //8
+        Category::create(['name' => 'Apples Green', 'parent_id' => $apple->id]); //9
     }
 }

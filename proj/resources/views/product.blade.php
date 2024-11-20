@@ -75,10 +75,11 @@
         <nav>
             <ul class="horizontal-list">
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="{{ route('regProfile') }}"><i class="fas fa-user"></i> Your profile</a></li>
+                <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
                 <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
-                <li><a href="{{ route('categories') }}"><i class="fas fa-list-ul"></i> Categories</a></li>
+                <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
+
             </ul>
         </nav>
     </header>
@@ -86,7 +87,15 @@
         <h1>{{ $product->name }}</h1>
         <p><strong>Description:</strong> {{ $product->description }}</p>
         <p><strong>Price:</strong> {{ $product->price }} $</p>
-        <p><strong>Category:</strong> {{ $product->category_id }} </p>
+        <p><strong>Category:</strong>
+        <ul>
+            @forelse ($categories as $category)
+                <li>{{ $category->name }}</li>
+            @empty
+                <li>No categories assigned.</li>
+            @endforelse
+        </ul>
+        </p>
     </div>
 
 </body>
