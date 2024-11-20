@@ -29,8 +29,18 @@ class RegistrationController extends Controller
             // Зберігаємо зміни
             $user->save();
     
-            return view('profile', compact('user'));
+            return view('profile');
         }
+        // $user = Auth::user();
+        // $user->surname = $request->surname;
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        
+        // // Зберігаємо зміни
+        // $user->save();
+
+
+        // return redirect()->route('profile');
         
     }
 
@@ -58,11 +68,15 @@ class RegistrationController extends Controller
                 'surname' => $request->surname,
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => $request->password,
-                // 'password' => Hash::make($request->password), // Хешування пароля
+                // 'password' => $request->password,
+                'password' => Hash::make($request->password), // Хешування пароля
             ]);
+
+            // Вхід після реєстрації
+            Auth::login($user);
     
-            return view('profile', compact('user'));
+            // return view('profile', compact('user'));
+            return redirect()->route('profile');
         }
 
         // return redirect()->route('profile')->with('success', 'Registration successful!');

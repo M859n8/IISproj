@@ -49,6 +49,15 @@ Route::post('/addproduct', [ProductController::class, 'createProduct'])->name('c
 //     Route::get('/profile', [RegistrationController::class, 'showProfile'])->name('profile');
 // });
 
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/profile', function () {
+//         return view('profile', ['user' => Auth::user()]);
+//     })->name('profile');
+// });
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile')->middleware('auth');
 
 //це не потрібно
 Route::post('/profile/update', [RegistrationController::class, 'update'])->name('profile.update');
@@ -68,4 +77,9 @@ Route::post('/register', [RegistrationController::class, 'regProfile'])->name('r
 // Route::get('/search', function () {
 //     return view('search.search'); // Сторінка пошуку
 // })->name('search');
+
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout'); // Ще не настав час
+
+
 

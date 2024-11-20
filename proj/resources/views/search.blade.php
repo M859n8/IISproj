@@ -167,7 +167,13 @@
         <nav>
             <ul class="horizontal-list">
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
+
+                @auth
+                    <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Your profile</a></li>
+                @else
+                    <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
+                @endauth
+
                 <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
                 <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
             </ul>
