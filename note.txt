@@ -9,8 +9,10 @@ bootstrap - рендерінг? і коніфгураційні фацли (сп
 	vendor - залежності, всі завантажені бібліотеки будуть тут 
 
 ## Commands
-php artisan serve -- start the proj
-http://localhost:8000/ -- open link
+php artisan serve  //start the proj
+http://localhost:8000/   // open link
 
-php artisan migrate  --створить таблиці
-php artisan db:seed  -- seeders
+php artisan migrate  //створить таблиці
+php artisan db:seed  //seeders
+php artisan migrate:fresh --seed //все одразу
+
