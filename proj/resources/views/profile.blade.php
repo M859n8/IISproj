@@ -119,34 +119,41 @@
         </nav>
     </header>
 
+
     <main>
         <section>
             <h2>Profile Information</h2>
-            <p><strong>Surname:</strong> {{ $user->surname }}</p>
-            <p><strong>Name:</strong> {{ $user->name }}</p>
-            <p><strong>Email:</strong> {{ $user->email }}</p>
-            <p><strong>Joined:</strong> {{ $user->created_at->format('F j, Y') }}</p>
+            <p><strong>Surname:</strong> {{ Auth::user()->surname }}</p>
+            <p><strong>Name:</strong> {{ Auth::user()->name }}</p>
+            <p><strong>Email:</strong> {{ Auth::user()->email }}</p>
+            <p><strong>Joined:</strong> {{ Auth::user()->created_at->format('F j, Y') }}</p>
         </section>
 
         <section>
             <h2>Edit Profile</h2>
             <form action="{{ route('profile.update') }}" method="POST">
                 @csrf
-                <input type="hidden" name="email" value="{{ $user->email }}">
+                <input type="hidden" name="email" value="{{ Auth::user()->email }}">
 
                 <label for="surname">Surname:</label>
-                <input type="text" id="surname" name="surname" value="{{ $user->surname }}" required>
+                <input type="text" id="surname" name="surname" value="{{ Auth::user()->surname }}" required>
 
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="{{ $user->name }}" required>
-                
-                <!-- <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="{{ $user->email }}" required> -->
-                
+                <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" required>
+
                 <button type="submit">Update Profile</button>
             </form>
         </section>
+        <section>
+            <h2>Logout</h2>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit">Logout</button>
+            </form>
+        </section>
     </main>
+
+
 
     <footer>
         <p>&copy; 2024 Green Market. All rights reserved.</p>
