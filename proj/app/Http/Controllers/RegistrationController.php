@@ -52,6 +52,7 @@ class RegistrationController extends Controller
             // 'email' => 'required|email|unique:users,email', // Перевірка унікальності
             'email' => 'required|email',
             'password' => 'required|min:6',
+            'role' => 'required|in:Farmer,Customer',
         ]);
 
         if ($validator->fails()) {
@@ -70,6 +71,7 @@ class RegistrationController extends Controller
                 'email' => $request->email,
                 // 'password' => $request->password,
                 'password' => Hash::make($request->password), // Хешування пароля
+                'role' => $request->role,
             ]);
 
             // Вхід після реєстрації

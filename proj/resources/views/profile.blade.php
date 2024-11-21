@@ -114,7 +114,11 @@
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
                 <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
-                <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
+                @auth
+                    @if(Auth::user()->role === 'Farmer')
+                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
+                    @endif
+                @endauth
 
             </ul>
         </nav>
@@ -128,6 +132,7 @@
             <p><strong>Name:</strong> {{ Auth::user()->name }}</p>
             <p><strong>Email:</strong> {{ Auth::user()->email }}</p>
             <p><strong>Joined:</strong> {{ Auth::user()->created_at->format('F j, Y') }}</p>
+            <p><strong>Role:</strong> {{ Auth::user()->role }}</p>
         </section>
 
         <section>

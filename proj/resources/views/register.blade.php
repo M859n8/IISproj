@@ -123,7 +123,11 @@
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
                 <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
-                <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
+                @auth
+                    @if(Auth::user()->role === 'Farmer')
+                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
+                    @endif
+                @endauth
             </ul>
         </nav>
     </header>
@@ -175,6 +179,19 @@
                 <label for="password_confirmation">Confirm Password</label>
                 <input type="password" name="password_confirmation" id="password_confirmation" required>
                 @error('password_confirmation')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Роль -->
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select name="role" id="role" required>
+                    <option value="" disabled selected>Choose role</option>
+                    <option value="Farmer">Farmer</option>
+                    <option value="Customer">Customer</option>
+                </select>
+                @error('role')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>

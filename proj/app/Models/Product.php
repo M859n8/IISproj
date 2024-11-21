@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'description', 'price', 'category'];
+    protected $fillable = ['name', 'description', 'price', 'rating_sum', 'rating_count'];
 
     // Звязок з категорією
     public function category()
@@ -18,6 +18,11 @@ class Product extends Model
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
