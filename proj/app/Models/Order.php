@@ -10,16 +10,26 @@ class Order extends Model
 {
     // use HasFactory; // Це створилося само не знаю що це
 
-    protected $fillable = [
-        'type'
-    ];
+    protected $fillable = ['product_id', 'user_id', 'status', 'quantity'];
 
-    // Можливі значення статусу
-    const TYPE_SELF_STORAGE = 'self-storage';
-    const TYPE_DELEGATED = 'delegated';
+    // Зв’язок із продуктом
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
-    // Встановлення дефолтного значення для статусу
-    protected $attributes = [
-        'status' => self::TYPE_DELEGATED, // Дефолтне значення
-    ];
+    // Зв’язок із користувачем
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+//     // Можливі значення статусу
+//     const TYPE_SELF_STORAGE = 'self-storage';
+//     const TYPE_DELEGATED = 'delegated';
+//
+//     // Встановлення дефолтного значення для статусу
+//     protected $attributes = [
+//         'status' => self::TYPE_DELEGATED, // Дефолтне значення
+//     ];
 }

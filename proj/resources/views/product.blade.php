@@ -96,6 +96,55 @@
             @endforelse
         </ul>
         </p>
+
+        <!-- @auth
+            <p> to order this product.</p>
+            <!-- @if(Auth::user()->status === 'customer') -->
+                 <!-- Кнопка "Замовити" -->
+            <!--<form action="{{ route('createOrder', ['id' => $product->id]) }}" method="POST">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                <label for="quantity_{{ $product->id }}">Quantity:</label>
+                <input type="number" id="quantity_{{ $product->id }}" name="quantity" min="1" required>
+
+                <button type="submit">Order</button>
+            </form>
+            <!-- @else
+                <p>You must be a customer to place an order. Please contact support to change your status.</p>
+            @endif  -->
+        <!--@else
+            <p><a href="{{ route('login') }}">Log in</a> to order this product.</p>
+        @endauth-->
+        <h1>Order a product</h1>
+        @auth
+            <!-- Показати форму замовлення -->
+
+
+            <form action="{{ route('createOrder', ['id' => $product->id]) }}" method="POST">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                <label for="quantity_{{ $product->id }}">Quantity:</label>
+                <input type="number" id="quantity_{{ $product->id }}" name="quantity" min="1" required>
+
+                <button type="submit">Order</button>
+            </form>
+        @else
+            <p><a href="{{ route('login') }}">Log in</a> to order this product.</p>
+        @endauth
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
     </div>
 
 </body>

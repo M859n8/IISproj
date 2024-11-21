@@ -5,6 +5,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchProductController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('main');
@@ -39,7 +40,7 @@ Route::get('/product/{id}', [ProductController::class, 'showProduct'])->name('pr
 Route::get('/addproduct', [ProductController::class, 'showCreateForm'])->name('addproduct'); //shows page
 Route::post('/addproduct', [ProductController::class, 'createProduct'])->name('createProduct'); //add product to db
 
-
+Route::post('/product/{id}', [OrderController::class, 'createOrder'])->name('createOrder');
 
 // Route::get('/profile', function () {
 //     return view('profile'); // Сторінка профілю, якщо юзер в дб
