@@ -135,6 +135,44 @@
             <p><strong>Role:</strong> {{ Auth::user()->role }}</p>
         </section>
 
+        @php
+            $userType = auth()->user()->role;
+        @endphp
+        <section class="orders-section">
+            <h2>Your Orders</h2>
+            @if($orders->isEmpty())
+                <p>No orders to display.</p>
+            @else
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                             @if($userType === 'Farmer')
+                                <th>Action</th>
+                            @endif
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($orders as $index => $order)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
+                                <td>{{ $order->product->name ?? 'Product not found' }}</td>
+                                <td>{{ $order->quantity }}</td>
+                                <td>{{ $order->status }}</td>
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+        </section>
+
+
         <section>
             <h2>Edit Profile</h2>
             <form action="{{ route('profile.update') }}" method="POST">

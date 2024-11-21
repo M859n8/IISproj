@@ -38,12 +38,14 @@ class ProductController extends Controller
 
         ]);
 
+        $user = auth()->user();
+
         // Створення нового продукту
         $product = new Product();
         $product->name = $validated['name'];
         $product->price = $validated['price'];
         $product->description = $validated['description'] ?? null;
-
+        $product->user_id = $user->id;
         $product->created_at = now();
         $product->updated_at = now();
         $product->save();
