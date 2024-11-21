@@ -128,7 +128,6 @@
                     <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
                 @endauth
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
-                <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
 
             </ul>
         </nav>
@@ -160,14 +159,13 @@
 
 
                  <select id="category" name="category_id">
-                     <option value="">Select category</option>
+                     <option value="">Select category *</option>
                      @foreach($categories as $category)
                          @include('partials.category-option', ['category' => $category, 'level' => 0])
                      @endforeach
                  </select>
             </div>
-
-
+            <p> * mandatory fields</p>
 
             <div class="form-group">
             <button type="submit" class="btn">Create Product</button>

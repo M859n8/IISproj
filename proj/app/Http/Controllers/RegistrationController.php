@@ -52,12 +52,12 @@ class RegistrationController extends Controller
             'name' => 'required|string|max:255',
             // 'email' => 'required|email|unique:users,email', // Перевірка унікальності
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|confirmed',
             'role' => 'required|in:Farmer,Customer',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
+            return back()->withErrors($validator)->withInput();  // Повертає назад з помилками
         }
 
         $user = User::where('email', $request->email)->first();

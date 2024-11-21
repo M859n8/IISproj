@@ -122,10 +122,9 @@
             <ul class="horizontal-list">
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
-                <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
                 @auth
                     @if(Auth::user()->role === 'Farmer')
-                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
+                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
                     @endif
                 @endauth
             </ul>
@@ -140,7 +139,7 @@
 
             <!-- Фамілія -->
             <div class="form-group">
-                <label for="name">Surname</label>
+                <label for="name">Surname *</label>
                 <input type="text" name="surname" id="surname" value="{{ old('surname') }}" required autofocus>
                 @error('surname')
                     <span class="text-danger">{{ $message }}</span>
@@ -149,7 +148,7 @@
 
             <!-- Ім'я -->
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Name *</label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus>
                 @error('name')
                     <span class="text-danger">{{ $message }}</span>
@@ -158,7 +157,7 @@
 
             <!-- Електронна пошта -->
             <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email">Email *</label>
                 <input type="email" name="email" id="email" value="{{ old('email') }}" required>
                 @error('email')
                     <span class="text-danger">{{ $message }}</span>
@@ -167,7 +166,7 @@
 
             <!-- Пароль -->
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Password *</label>
                 <input type="password" name="password" id="password" required>
                 @error('password')
                     <span class="text-danger">{{ $message }}</span>
@@ -176,7 +175,7 @@
 
             <!-- Підтвердження пароля -->
             <div class="form-group">
-                <label for="password_confirmation">Confirm Password</label>
+                <label for="password_confirmation">Confirm Password *</label>
                 <input type="password" name="password_confirmation" id="password_confirmation" required>
                 @error('password_confirmation')
                     <span class="text-danger">{{ $message }}</span>
@@ -185,7 +184,7 @@
 
             <!-- Роль -->
             <div class="form-group">
-                <label for="role">Role</label>
+                <label for="role">Role *</label>
                 <select name="role" id="role" required>
                     <option value="" disabled selected>Choose role</option>
                     <option value="Farmer">Farmer</option>
@@ -195,6 +194,8 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
+
+            <p> * mandatory fields</p>
 
             <!-- Кнопка реєстрації -->
             <div class="form-group">

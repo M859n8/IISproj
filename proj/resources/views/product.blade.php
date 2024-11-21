@@ -55,6 +55,7 @@
             margin: 80px auto;
         }
 
+
         h1 {
             font-size: 24px;
             margin-bottom: 20px;
@@ -81,10 +82,9 @@
                     <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
                 @endauth
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
-                <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
                 @auth
                     @if(Auth::user()->role === 'Farmer')
-                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
+                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
                     @endif
                 @endauth
 
@@ -95,6 +95,8 @@
         <h1>{{ $product->name }}</h1>
         <p><strong>Description:</strong> {{ $product->description }}</p>
         <p><strong>Price:</strong> {{ $product->price }} $</p>
+        <p><strong>Quantity:</strong> {{ $product->quantity }} </p>
+
         <p><strong>Category:</strong>
         <ul>
             @forelse ($categories as $category)
@@ -105,29 +107,10 @@
         </ul>
         </p>
 
-        <!-- @auth
-            <p> to order this product.</p>
-            <!-- @if(Auth::user()->status === 'customer') -->
-                 <!-- Кнопка "Замовити" -->
-            <!--<form action="{{ route('createOrder', ['id' => $product->id]) }}" method="POST">
-                @csrf
-                <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                <label for="quantity_{{ $product->id }}">Quantity:</label>
-                <input type="number" id="quantity_{{ $product->id }}" name="quantity" min="1" required>
-
-                <button type="submit">Order</button>
-            </form>
-            <!-- @else
-                <p>You must be a customer to place an order. Please contact support to change your status.</p>
-            @endif  -->
-        <!--@else
-            <p><a href="{{ route('login') }}">Log in</a> to order this product.</p>
-        @endauth-->
         <h1>Order a product</h1>
-        @auth
-            <!-- Показати форму замовлення -->
 
+        @if(Auth::user()->role === 'Customer')
 
             <form action="{{ route('createOrder', ['id' => $product->id]) }}" method="POST">
                 @csrf
@@ -139,8 +122,9 @@
                 <button type="submit">Order</button>
             </form>
         @else
-            <p><a href="{{ route('login') }}">Log in</a> to order this product.</p>
-        @endauth
+            <p><a href="{{ route('login') }}">Log in as customer</a> to order this product.</p>
+
+        @endif
 
         @if(session('success'))
             <div class="alert alert-success">

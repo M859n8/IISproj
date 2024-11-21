@@ -123,6 +123,12 @@
             bottom: 0;
             width: 100%;
         }
+        .order-section td {
+            padding: 5px;
+        }
+        .order-section th {
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
@@ -131,10 +137,9 @@
             <ul class="horizontal-list">
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
-                <li><a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i> Your shopping cart</a></li>
                 @auth
                     @if(Auth::user()->role === 'Farmer')
-                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
+                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
                     @endif
                 @endauth
                 @if(Auth::user()->role === 'Admin')
@@ -162,7 +167,7 @@
         @php
             $userType = auth()->user()->role;
         @endphp
-        <section class="orders-section">
+        <section class="order-section">
             <h2>Your Orders</h2>
             @if($orders->isEmpty())
                 <p>No orders to display.</p>
@@ -172,7 +177,7 @@
                         <tr>
                             <th>#</th>
                             <th>Date</th>
-                            <th>Product Name</th>
+                            <th>Name</th>
                             <th>Quantity</th>
                             <th>Status</th>
                             @if($userType === 'Farmer')
@@ -238,7 +243,7 @@
         </section>
         
         @if(Auth::user()->role === 'Farmer')
-        <section>
+        <section class="order-section">
             <h2>My Products</h2>
             @foreach(Auth::user()->products as $product)
                 <div>
