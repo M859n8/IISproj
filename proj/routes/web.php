@@ -42,6 +42,11 @@ Route::post('/addproduct', [ProductController::class, 'createProduct'])->name('c
 
 Route::post('/product/{id}', [OrderController::class, 'createOrder'])->name('createOrder');
 
+// Route::patch('/profile', [OrderController::class, 'updateOrderStatus'])->name('updateOrderStatus');
+// Route::get('/profile', [OrderController::class, 'updateOrderStatus'])->name('updateOrderStatus');
+
+
+
 // Route::get('/profile', function () {
 //     return view('profile'); // Сторінка профілю, якщо юзер в дб
 // })->name('profile');
@@ -64,8 +69,6 @@ Route::get('/profile', [OrderController::class, 'userOrders'])
     ->name('profile')
     ->middleware('auth');
 
-
-//це не потрібно
 Route::post('/profile/update', [RegistrationController::class, 'update'])->name('profile.update');
 
 Route::get('/register', function () {

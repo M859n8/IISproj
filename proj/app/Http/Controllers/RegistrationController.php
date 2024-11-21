@@ -29,7 +29,8 @@ class RegistrationController extends Controller
             // Зберігаємо зміни
             $user->save();
     
-            return view('profile');
+//             return view('profile');
+            return redirect()->route('profile');
         }
         // $user = Auth::user();
         // $user->surname = $request->surname;

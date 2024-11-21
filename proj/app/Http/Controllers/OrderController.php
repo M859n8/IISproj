@@ -36,20 +36,6 @@ class OrderController extends Controller
         return redirect()->back()->with('success', 'Product added to your order list!');
     }
 
-//     public function customerOrders()
-//     {
-//         // Отримати ідентифікатор автентифікованого користувача
-//         $userId = auth()->id();
-//
-//         // Отримати всі замовлення цього користувача з пов'язаними продуктами
-//         $orders = Order::with('product')
-//             ->where('user_id', $userId)
-//             ->orderBy('created_at', 'desc')
-//             ->get();
-//
-//         // Повернути в'юху з передачею замовлень
-//         return view('profile', ['orders' => $orders]);
-//     }
 
     public function userOrders()
     {
@@ -74,6 +60,33 @@ class OrderController extends Controller
 
         return view('profile', ['orders' => $orders, 'userRole' => $user->role]);
     }
+
+//     public function updateOrderStatus($id){
+//         $user = auth()->user();
+//         $order = Order::findOrFail($id);
+//         if ($user->role === 'Farmer') {
+// //             if ($order->product->user_id !== $user->id) {
+// //                 abort(403, 'Unauthorized action.');
+// //             }
+//             // Оновлення стану замовлення
+//             $order->status = 'prepared';
+//             $order->save();
+//
+//             return redirect()->route('userOrders')->with('success', 'Order status updated to "Prepared".');
+//
+//         } else if ($user->role === 'Customer') {
+// //             if ($order->user_id !== $user->id) {
+// //                 abort(403, 'Unauthorized action.');
+// //             }
+//             $order->status = 'completed';
+//             $order->save();
+//             return redirect()->route('userOrders')->with('success', 'Order status updated to "Prepared".');
+//         }
+//
+//     }
+
+
+
 
 
 }

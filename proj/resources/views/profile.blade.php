@@ -164,6 +164,7 @@
                                 <td>{{ $order->product->name ?? 'Product not found' }}</td>
                                 <td>{{ $order->quantity }}</td>
                                 <td>{{ $order->status }}</td>
+                                
 
                             </tr>
                         @endforeach
