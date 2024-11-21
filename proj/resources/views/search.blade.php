@@ -110,6 +110,7 @@
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid #e0e0e0;
+            align-items: center;
         }
 
         .table-header {
@@ -122,9 +123,14 @@
             padding: 5px 10px;
         }
         .table-header span {
-            padding: 5px 10px;
+            /* padding: 5px 10px; */
             /* Використовуємо ті ж значення flex-grow для відповідних колонок */
-            flex-grow: 2; /* Для назви продукту */
+            /* flex-grow: 2; Для назви продукту */
+            text-align: left;
+        }
+
+        .table-header .name-header {
+            flex: 2; /* Назва продукту */
         }
 
         .table-header .description-header {
@@ -135,11 +141,15 @@
             flex-grow: 1; /* Для ціни і категорії */
         }
 
+        .table-header .rate-header {
+            flex: 1; /* Оцінка */
+        }
+
         .product-name {
             font-weight: bold;
             color: black;
             text-decoration: none;
-            flex-grow: 2; /* Назва продукту */
+            flex: 2;
         }
 
         .product-name:hover {
@@ -148,17 +158,26 @@
 
         .product-description {
             color: #666;
-            flex-grow: 4; /* Опис продукту – більше місця */
+            flex: 4; /* Опис продукту – більше місця */
         }
 
         .product-price {
             color: #999;
-            flex-grow: 1; /* Ціна продукту */
+            flex: 1; /* Ціна продукту */
+            text-align: left;
         }
 
+        .product-rate {
+            font-weight: bold;
+            text-align: center;
+            /* color: #4CAF50; Колір зеленого для оцінки */
+        }
 
-
-
+        .star-symbol {
+            color: gold; /* Золотий колір для зірочки */
+            /* font-size: 1.2em; Можна налаштувати розмір зірочки */
+            /* margin-left: 5px; Відстань між оцінкою та зірочкою */
+        }
     </style>
 </head>
 <body>
@@ -219,12 +238,19 @@
                     <span class="name-header">Назва</span>
                     <span class="description-header">Опис</span>
                     <span class="price-header">Ціна</span>
+                    <span class="rate-header">Оцінка</span>
                 </div>
                 @foreach ($products as $product)
                     <div class="product-row">
                         <a href="{{ route('productPage', $product->id) }}" class="product-name">{{ $product->name }}</a>
                         <span class="product-description">{{ $product->description }}</span>
                         <span class="product-price">{{ $product->price }} $</span>
+                        <!-- <span class="product-rate">{{ $product->rating_count > 0 ? round($product->rating_sum / $product->rating_count, 2) : 'No ratings yet' }} 
+                        $</span> -->
+                        <span class="product-rate">
+                            {{ $product->rating_count > 0 ? round($product->rating_sum / $product->rating_count, 2) : 'No ratings yet' }} 
+                            <span class="star-symbol">★</span>
+                        </span>
                     </div>
                 @endforeach
             </div>
