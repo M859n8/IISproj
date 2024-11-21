@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Profile</title>
+    <title>Edit Product</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
@@ -122,9 +122,6 @@
                         <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
                     @endif
                 @endauth
-                @if(Auth::user()->role === 'Admin')
-                    <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
-                @endif
                 <li class="logout"><form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit">Logout</button>
@@ -133,64 +130,26 @@
         </nav>
     </header>
 
-
     <main>
         <section>
-            <h2>Profile Information</h2>
-            <p><strong>Surname:</strong> {{ Auth::user()->surname }}</p>
-            <p><strong>Name:</strong> {{ Auth::user()->name }}</p>
-            <p><strong>Email:</strong> {{ Auth::user()->email }}</p>
-            <p><strong>Joined:</strong> {{ Auth::user()->created_at->format('F j, Y') }}</p>
-            <p><strong>Role:</strong> {{ Auth::user()->role }}</p>
-        </section>
-
-        <section>
-            <h2>Edit Profile</h2>
-            <form action="{{ route('profile.update') }}" method="POST">
+            <h2>Edit Product</h2>
+            <form action="{{ route('products.update', $product->id) }}" method="POST">
                 @csrf
-                <input type="hidden" name="email" value="{{ Auth::user()->email }}">
-
-                <label for="surname">Surname:</label>
-                <input type="text" id="surname" name="surname" value="{{ Auth::user()->surname }}" required>
+                @method('PUT')
 
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" required>
+                <input type="text" id="name" name="name" value="{{ $product->name }}" required>
 
-                <button type="submit">Update Profile</button>
+                <label for="price">Price:</label>
+                <input type="text" id="price" name="price" value="{{ $product->price }}" required>
+
+                <label for="quantity">Quantity:</label>
+                <input type="text" id="quantity" name="quantity" value="{{ $product->quantity }}" required>
+
+                <button type="submit">Update Product</button>
             </form>
         </section>
-        
-        @if(Auth::user()->role === 'Farmer')
-        <section>
-            <h2>My Products</h2>
-            @foreach(Auth::user()->products as $product)
-                <div>
-                    <p><strong>Name:</strong> {{ $product->name }}</p>
-                    <p><strong>Price:</strong> {{ $product->price }} USD</p>
-                    <p><strong>Quantity:</strong> {{ $product->quantity }}</p>
-                    <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Delete</button>
-                    </form>
-                    <a href="{{ route('editproduct', $product->id) }}">Edit</a>
-                </div>
-            @endforeach
-        </section>
-        @endif
-
-
-
-        <!-- <section>
-            <h2>Logout</h2>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit">Logout</button>
-            </form>
-        </section> -->
     </main>
-
-
 
     <footer>
         <p>&copy; 2024 Green Market. All rights reserved.</p>

@@ -180,6 +180,11 @@
                         <li><a href="{{ route('addproduct') }}"><i class="fas fa-list-ul"></i> Add new product</a></li>
                     @endif
                 @endauth
+                @auth
+                    @if(Auth::user()->role === 'Admin')
+                        <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
+                    @endif
+                @endauth
             </ul>
         </nav>
 
