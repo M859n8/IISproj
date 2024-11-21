@@ -61,32 +61,20 @@ class OrderController extends Controller
         return view('profile', ['orders' => $orders, 'userRole' => $user->role]);
     }
 
-//     public function updateOrderStatus($id){
-//         $user = auth()->user();
-//         $order = Order::findOrFail($id);
-//         if ($user->role === 'Farmer') {
-// //             if ($order->product->user_id !== $user->id) {
-// //                 abort(403, 'Unauthorized action.');
-// //             }
-//             // Оновлення стану замовлення
-//             $order->status = 'prepared';
-//             $order->save();
-//
-//             return redirect()->route('userOrders')->with('success', 'Order status updated to "Prepared".');
-//
-//         } else if ($user->role === 'Customer') {
-// //             if ($order->user_id !== $user->id) {
-// //                 abort(403, 'Unauthorized action.');
-// //             }
-//             $order->status = 'completed';
-//             $order->save();
-//             return redirect()->route('userOrders')->with('success', 'Order status updated to "Prepared".');
-//         }
-//
-//     }
 
+    public function statusPrepeared($id)
+    {
+        $order = Order::findOrFail($id);
 
+        // Перевірка, чи користувач - фермер і чи це його замовлення
+        // if (auth()->user()->role !== 'Farmer') {
+        //     return redirect()->back()->with('error', 'You are not authorized to perform this action.');
+        // }
 
+        $order->update(['status' => 'prepared']);
+
+        return redirect()->back()->with('success', 'Order marked as ready.');
+    }
 
 
 }

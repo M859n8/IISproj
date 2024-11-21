@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminPageController;
+use App\Http\Controllers\FarmerProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LoginController;
@@ -93,4 +95,15 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout'); // Ð
 
 
 
+Route::get('/userlist', [AdminPageController::class, 'index'])->name('users.list');
+Route::delete('/userlist/{id}', [AdminPageController::class, 'destroy'])->name('users.destroy');
 
+// Route::get('/products/{id}/edit', function ($id) {
+//     return view('products.edit', ['id' => $id]);
+// })->name('products.edit');
+
+Route::get('/products/{id}/edit', [FarmerProductController::class, 'edit'])->name('editproduct');
+Route::put('/products/{id}', [FarmerProductController::class, 'update'])->name('products.update');
+Route::delete('/product/{id}', [FarmerProductController::class, 'destroy'])->name('products.destroy');
+
+Route::put('/orders/{id}/ready', [OrderController::class, 'statusPrepeared'])->name('orderReady');
