@@ -58,9 +58,14 @@ Route::post('/product/{id}', [OrderController::class, 'createOrder'])->name('cre
 //     })->name('profile');
 // });
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile')->middleware('auth');
+// Route::get('/profile', function () {
+//     return view('profile');
+// })->name('profile')->middleware('auth');
+
+Route::get('/profile', [OrderController::class, 'userOrders'])
+    ->name('profile')
+    ->middleware('auth');
+
 
 //це не потрібно
 Route::post('/profile/update', [RegistrationController::class, 'update'])->name('profile.update');
@@ -86,6 +91,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout'); // �
 
 
 
+
 Route::get('/userlist', [AdminPageController::class, 'index'])->name('users.list');
 Route::delete('/userlist/{id}', [AdminPageController::class, 'destroy'])->name('users.destroy');
 
@@ -96,3 +102,4 @@ Route::delete('/userlist/{id}', [AdminPageController::class, 'destroy'])->name('
 Route::get('/products/{id}/edit', [FarmerProductController::class, 'edit'])->name('editproduct');
 Route::put('/products/{id}', [FarmerProductController::class, 'update'])->name('products.update');
 Route::delete('/product/{id}', [FarmerProductController::class, 'destroy'])->name('products.destroy');
+
