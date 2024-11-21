@@ -23,7 +23,7 @@ class ProductSeeder extends Seeder
             'description' => 'Fresh red apples from the local farm.',
             'quantity' => '5 kg',
             'price' => 15.99,
-            'user_id' => 1, // Ідентифікатор користувача, який створив продукт
+            // 'user_id' => 1, // Ідентифікатор користувача, який створив продукт
         ]);
 
         $apple1 = $user1->products()->create([
@@ -31,7 +31,7 @@ class ProductSeeder extends Seeder
             'description' => 'Fresh red apples from the local farm.',
             'quantity' => '1 kg',
             'price' => 14.99,
-            'user_id' => 1,
+            // 'user_id' => 1,
         ]);
 
         $broccoli = $user->products()->create([
@@ -39,7 +39,7 @@ class ProductSeeder extends Seeder
             'description' => 'Organic green broccoli, rich in vitamins.',
             'quantity' => '10 kg',
             'price' => 22.50,
-            'user_id' => 1,
+            // 'user_id' => 1,
 
         ]);
 
@@ -48,7 +48,7 @@ class ProductSeeder extends Seeder
             'description' => '1 liter of fresh cow milk.',
             'quantity' => '1 l',
             'price' => 20.00,
-            'user_id' => 1,
+            // 'user_id' => 1,
 
         ]);
 
@@ -57,7 +57,7 @@ class ProductSeeder extends Seeder
             'description' => 'Healthy whole wheat bread baked fresh daily.',
             'quantity' => '5 peace',
             'price' => 18.00,
-            'user_id' => 2,
+            // 'user_id' => 2,
 
         ]);
 
@@ -66,7 +66,7 @@ class ProductSeeder extends Seeder
             'description' => 'Aged cheddar cheese, perfect for sandwiches.',
             'quantity' => '1 kg',
             'price' => 45.00,
-            'user_id' => 2,
+            // 'user_id' => 2,
 
         ]);
 

@@ -99,6 +99,21 @@
             background-color: #50735b;
         }
 
+        .btn-order-ready {
+            display: inline-block; /* Щоб кнопка не була розтягнута */
+            padding: 5px 15px; /* Менший відступ */
+            background-color: #4caf50; /* Зелений колір */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px; /* Зменшений розмір шрифту */
+            cursor: pointer;
+        }
+
+        .btn-order-ready:hover {
+            background-color: #3e8e41; /* Трохи темніший колір при наведенні */
+        }
+
         footer {
             text-align: center;
             padding: 20px;
@@ -160,8 +175,11 @@
                             <th>Product Name</th>
                             <th>Quantity</th>
                             <th>Status</th>
-                             @if($userType === 'Farmer')
+                            @if($userType === 'Farmer')
                                 <th>Action</th>
+                            @endif
+                            @if($userType === 'Customer')
+                                <th>Rate</th>
                             @endif
                         </tr>
                     </thead>
@@ -173,7 +191,26 @@
                                 <td>{{ $order->product->name ?? 'Product not found' }}</td>
                                 <td>{{ $order->quantity }}</td>
                                 <td>{{ $order->status }}</td>
-
+                                @if($userType === 'Farmer')
+                                    <td>
+                                        @if($order->status !== 'prepared')
+                                            <form action="{{ route('orderReady', $order->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-success btn-order-ready">Order ready</button>
+                                            </form>
+                                        @else
+                                            <span>None</span>
+                                        @endif
+                                    </td>
+                                @endif
+                                @if($userType === 'Customer')
+                                    <td>
+                                        @if($order->status !== 'prepared')
+                                         <!-- to do -->
+                                        @endif
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

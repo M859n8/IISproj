@@ -75,6 +75,19 @@ class OrderController extends Controller
         return view('profile', ['orders' => $orders, 'userRole' => $user->role]);
     }
 
+    public function statusPrepeared($id)
+    {
+        $order = Order::findOrFail($id);
+
+        // Перевірка, чи користувач - фермер і чи це його замовлення
+        // if (auth()->user()->role !== 'Farmer') {
+        //     return redirect()->back()->with('error', 'You are not authorized to perform this action.');
+        // }
+
+        $order->update(['status' => 'prepared']);
+
+        return redirect()->back()->with('success', 'Order marked as ready.');
+    }
 
 }
 
