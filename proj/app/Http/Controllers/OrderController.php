@@ -49,6 +49,8 @@ class OrderController extends Controller
                 })
                 ->orderBy('created_at', 'desc')  // Сортує замовлення за датою створення в порядку спадання (найновіші перші).
                 ->get();  // Отримує всі замовлення, які відповідають критеріям.
+            return view('profile', ['orders' => $orders, 'userRole' => $user->role]);
+
 
         } else if ($user->role === 'Customer') {
             // Отримати замовлення, зроблені користувачем
@@ -56,9 +58,12 @@ class OrderController extends Controller
                 ->where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
+            return view('profile', ['orders' => $orders, 'userRole' => $user->role]);
+
+        }else if ($user->role === 'Admin') {
+            return view('profile', ['orders' => null, 'userRole' => $user->role]);
         }
 
-        return view('profile', ['orders' => $orders, 'userRole' => $user->role]);
     }
 
 

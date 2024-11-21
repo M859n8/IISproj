@@ -99,20 +99,6 @@
             background-color: #50735b;
         }
 
-        .btn-order-ready {
-            display: inline-block; /* Щоб кнопка не була розтягнута */
-            padding: 5px 15px; /* Менший відступ */
-            background-color: #4caf50; /* Зелений колір */
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 14px; /* Зменшений розмір шрифту */
-            cursor: pointer;
-        }
-
-        .btn-order-ready:hover {
-            background-color: #3e8e41; /* Трохи темніший колір при наведенні */
-        }
 
         footer {
             text-align: center;
@@ -129,6 +115,22 @@
         .order-section th {
             padding: 5px;
         }
+
+        .product-actions a {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .product-actions a:hover {
+            background-color: #0056b3;
+        }
+
+
     </style>
 </head>
 <body>
@@ -167,6 +169,8 @@
         @php
             $userType = auth()->user()->role;
         @endphp
+        @if(Auth::user()->role !== 'Admin')
+
         <section class="order-section">
             <h2>Your Orders</h2>
             @if($orders->isEmpty())
@@ -224,7 +228,7 @@
                 </table>
             @endif
         </section>
-
+        @endif
 
         <section>
             <h2>Edit Profile</h2>
@@ -245,19 +249,35 @@
         @if(Auth::user()->role === 'Farmer')
         <section class="order-section">
             <h2>My Products</h2>
-            @foreach(Auth::user()->products as $product)
-                <div>
-                    <p><strong>Name:</strong> {{ $product->name }}</p>
-                    <p><strong>Price:</strong> {{ $product->price }} USD</p>
-                    <p><strong>Quantity:</strong> {{ $product->quantity }}</p>
-                    <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Delete</button>
-                    </form>
-                    <a href="{{ route('editproduct', $product->id) }}">Edit</a>
-                </div>
-            @endforeach
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(Auth::user()->products as $product)
+                        <tr>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->price }} USD</td>
+                            <td>{{ $product->quantity }}</td>
+                            <td>
+                                <div class="product-actions">
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                    <a href="{{ route('editproduct', $product->id) }}">Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </section>
         @endif
 

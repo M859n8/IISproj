@@ -234,10 +234,10 @@
         @if(isset($products) && $products->isNotEmpty())
             <div class="product-table">
                 <div class="table-header">
-                    <span class="name-header">Назва</span>
-                    <span class="description-header">Опис</span>
-                    <span class="price-header">Ціна</span>
-                    <span class="rate-header">Оцінка</span>
+                    <span class="name-header">Name</span>
+                    <span class="description-header">Description</span>
+                    <span class="price-header">Price</span>
+                    <span class="rate-header">Rating</span>
                 </div>
                 @foreach ($products as $product)
                     <div class="product-row">
