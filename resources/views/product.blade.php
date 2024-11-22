@@ -117,9 +117,24 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
 
                 <label for="quantity_{{ $product->id }}">Quantity:</label>
-                <input type="number" id="quantity_{{ $product->id }}" name="quantity" min="1" required>
-
-                <button type="submit">Order</button>
+                <!-- <input type="number" id="quantity_{{ $product->id }}" name="quantity" min="1" required> -->
+                <div style="display: flex; align-items: center;">
+                    <input 
+                        type="number" 
+                        id="quantity_{{ $product->id }}" 
+                        name="quantity" 
+                        min="1" 
+                        max="{{ $product->quantity }}" 
+                        required 
+                        oninput="validateQuantity('{{ $product->quantity }}', this)"
+                        style="margin-right: 5px;"
+                    >
+                    <span>{{ $product->unit }}</span>
+                </div>
+                <small id="error-message-{{ $product->id }}" style="color: red; display: none;">
+                    Entered quantity exceeds available stock.
+                </small>
+                <button id="order-button-{{ $product->id }}" type="submit">Order</button>
             </form>
         @else
             <p><a href="{{ route('login') }}">Log in as customer</a> to order this product.</p>
@@ -141,3 +156,20 @@
 
 </body>
 </html>
+
+<script>
+    function validateQuantity(maxQuantity, inputElement) {
+        maxQuantity = parseInt(maxQuantity, 10); // Перетворення в число
+        const errorMessage = document.getElementById(`error-message-${inputElement.id.split('_')[1]}`);
+        const orderButton = document.getElementById(`order-button-${inputElement.id.split('_')[1]}`);
+        if (parseInt(inputElement.value, 10) > maxQuantity) {
+            errorMessage.style.display = 'block';
+            inputElement.setCustomValidity('Entered quantity exceeds available stock.');
+            orderButton.style.display = 'none'; 
+        } else {
+            errorMessage.style.display = 'none'; 
+            inputElement.setCustomValidity('');
+            orderButton.style.display = 'inline-block';
+        }
+    }
+</script>

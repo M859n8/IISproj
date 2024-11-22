@@ -107,3 +107,5 @@ Route::put('/products/{id}', [FarmerProductController::class, 'update'])->name('
 Route::delete('/product/{id}', [FarmerProductController::class, 'destroy'])->name('products.destroy');
 
 Route::put('/orders/{id}/ready', [OrderController::class, 'statusPrepeared'])->name('orderReady');
+
+Route::post('/rate-product/{id}', [OrderController::class, 'rate'])->name('rateProduct');

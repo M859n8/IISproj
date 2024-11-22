@@ -13,20 +13,20 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $fruits = Category::create(['name' => 'Fruits']); // 1
+        $fruits = Category::create(['name' => 'Fruits', 'status' => 'Approved']); // 1
 
-        Category::create(['name' => 'Vegetables']);
+        Category::create(['name' => 'Vegetables', 'status' => 'Approved']);
 
-        Category::create(['name' => 'Dairy Products']); //id 3
+        Category::create(['name' => 'Dairy Products', 'status' => 'Approved']); //id 3
 
-        $bakery = Category::create(['name' => 'Bakery']); //id 4
+        $bakery = Category::create(['name' => 'Bakery', 'status' => 'Approved']); //id 4
 
-        $apple = Category::create(['name' => 'Apples', 'parent_id' => $fruits->id]); // 5
-        Category::create(['name' => 'Banana', 'parent_id' => $fruits->id]);
-        Category::create(['name' => 'Orange', 'parent_id' => $fruits->id]);
+        $apple = Category::create(['name' => 'Apples', 'status' => 'Approved', 'parent_id' => $fruits->id]); // 5
+        Category::create(['name' => 'Banana', 'status' => 'Approved', 'parent_id' => $fruits->id]);
+        Category::create(['name' => 'Orange', 'status' => 'Approved','parent_id' => $fruits->id]);
 
         // Продукти
-        Category::create(['name' => 'Apples Gala', 'parent_id' => $apple->id]); //8
-        Category::create(['name' => 'Apples Green', 'parent_id' => $apple->id]); //9
+        Category::create(['name' => 'Apples Gala',  'status' => 'Approved','parent_id' => $apple->id]); //8
+        Category::create(['name' => 'Apples Green', 'status' => 'Approved', 'parent_id' => $apple->id]); //9
     }
 }

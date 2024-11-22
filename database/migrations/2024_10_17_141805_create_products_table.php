@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('quantity')->nullable(); 
+            $table->integer('quantity')->default(0); 
+            $table->string('unit')->nullable(); 
             $table->integer('rating_sum')->default(0); // сума оцінок
             $table->integer('rating_count')->default(0); // кількість оцінок
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');

@@ -216,8 +216,20 @@
                                 @endif
                                 @if($userType === 'Customer')
                                     <td>
-                                        @if($order->status !== 'prepared')
-                                         <!-- to do -->
+                                        @if($order->status === 'prepared')
+                                            <form method="POST" action="{{ route('rateProduct', $order->id) }}">
+                                                @csrf
+                                                <input 
+                                                    type="number" 
+                                                    name="rating" 
+                                                    min="1" 
+                                                    max="5" 
+                                                    step="1" 
+                                                    placeholder="Rate from 1 to 5" 
+                                                    style="width: 100%; box-sizing: border-box;" 
+                                                    required>
+                                                <button type="submit">Rate</button>
+                                            </form>
                                         @endif
                                     </td>
                                 @endif

@@ -71,15 +71,36 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        // Перевірка, чи користувач - фермер і чи це його замовлення
-        // if (auth()->user()->role !== 'Farmer') {
-        //     return redirect()->back()->with('error', 'You are not authorized to perform this action.');
-        // }
+        // Отримати продукт, пов'язаний із замовленням
+        $product = Product::findOrFail($order->product_id);
+        // Відняти кількість замовлення з кількості продукту
+        $product->quantity -= $order->quantity;
+        $product->save();
 
         $order->update(['status' => 'prepared']);
 
         return redirect()->back()->with('success', 'Order marked as ready.');
     }
+
+    public function rate(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+        $order = Order::findOrFail($id);
+        // Оновлюємо статус
+        $order->update(['status' => 'completed']);
+        $product = $order->product;
+
+        $product->rating_sum += $validated['rating'];
+        $product->rating_count += 1;
+
+        $product->save();
+        $order->delete();
+
+        return redirect()->back()->with('success', 'Оцінка додана успішно!');
+    }
+
 
 
 }
