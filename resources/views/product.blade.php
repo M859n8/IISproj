@@ -108,8 +108,10 @@
                     @if(Auth::user()->role === 'Farmer')
                         <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
                     @endif
+                    <li><a href="{{ route('createcategory') }}"><i class="fas fa-plus"></i> Create Category</a></li>
                     @if(Auth::user()->role === 'Admin')
                         <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="{{ route('categorylist') }}"><i class="fas fa-list-alt"></i> Pending Categories</a></li>
                     @endif
                     @endauth
                 </div>

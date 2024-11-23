@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPageController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FarmerProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
@@ -100,9 +101,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout'); // Ð
 Route::get('/userlist', [AdminPageController::class, 'index'])->name('users.list');
 Route::delete('/userlist/{id}', [AdminPageController::class, 'destroy'])->name('users.destroy');
 
-// Route::get('/products/{id}/edit', function ($id) {
-//     return view('products.edit', ['id' => $id]);
-// })->name('products.edit');
 
 Route::get('/products/{id}/edit', [FarmerProductController::class, 'edit'])->name('editproduct');
 Route::put('/products/{id}', [FarmerProductController::class, 'update'])->name('products.update');
@@ -111,3 +109,11 @@ Route::delete('/product/{id}', [FarmerProductController::class, 'destroy'])->nam
 Route::put('/orders/{id}/ready', [OrderController::class, 'statusPrepeared'])->name('orderReady');
 
 Route::post('/rate-product/{id}', [OrderController::class, 'rate'])->name('rateProduct');
+
+Route::get('/createcategory', [CategoryController::class, 'showCategories'])->name('createcategory');
+Route::post('/createcategory', [CategoryController::class, 'create'])->name('createCategory');
+
+
+Route::get('/categories', [AdminPageController::class, 'showCategories'])->name('categorylist');
+Route::post('/categories/{id}/approve', [AdminPageController::class, 'approveCategory'])->name('categoriesApprove');
+Route::post('/categories/{id}/delete', [AdminPageController::class, 'deleteCategory'])->name('categoriesDelete');

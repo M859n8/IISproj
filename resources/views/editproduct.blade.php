@@ -130,23 +130,17 @@
     <header>
         <nav>
             <ul class="horizontal-list">
-
                 <div class="menu-items">
                     <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
-
-                    @auth
-                        <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Your profile</a></li>
-                    @else
-                        <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
-                    @endauth
                     <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
                     @auth
-                    @if(Auth::user()->role === 'Farmer')
-                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
-                    @endif
-                    @if(Auth::user()->role === 'Admin')
-                        <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
-                    @endif
+                        @if(Auth::user()->role === 'Farmer')
+                            <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
+                        @endif
+                        @if(Auth::user()->role === 'Admin')
+                            <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
+                            <li><a href="{{ route('categorylist') }}"><i class="fas fa-list-alt"></i> Pending Categories</a></li>
+                        @endif
                     @endauth
                 </div>
                 @auth
@@ -159,6 +153,16 @@
                     </li>
                 </div>
                 @endauth
+<<<<<<< HEAD
+                @auth
+                    <li><a href="{{ route('createcategory') }}"><i class="fas fa-plus"></i> Create Category</a></li>
+                @endauth
+                <li class="logout"><form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form></li>
+=======
+>>>>>>> 6ae24b62fec01b2a6572ca2ea815ecd0bf86ce23
             </ul>
         </nav>
     </header>
