@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SearchProductController;
+use App\Http\Controllers\SelfPickingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 
@@ -117,3 +118,6 @@ Route::post('/createcategory', [CategoryController::class, 'create'])->name('cre
 Route::get('/categories', [AdminPageController::class, 'showCategories'])->name('categorylist');
 Route::post('/categories/{id}/approve', [AdminPageController::class, 'approveCategory'])->name('categoriesApprove');
 Route::post('/categories/{id}/delete', [AdminPageController::class, 'deleteCategory'])->name('categoriesDelete');
+
+
+Route::post('/self-picking/{id}', [SelfPickingController::class, 'create'])->name('selfpicking.start');

@@ -26,28 +26,6 @@ class User extends Authenticatable
         'role',
     ];
 
-    // /**
-    //  * The attributes that should be hidden for serialization.
-    //  *
-    //  * @var array<int, string>
-    //  */
-    // protected $hidden = [
-    //     'password',
-    //     'remember_token',
-    // ];
-
-    // /**
-    //  * Get the attributes that should be cast.
-    //  *
-    //  * @return array<string, string>
-    //  */
-    // protected function casts(): array
-    // {
-    //     return [
-    //         'email_verified_at' => 'datetime',
-    //         'password' => 'hashed',
-    //     ];
-    // }
     public function products()
     {
         return $this->hasMany(Product::class);
@@ -56,6 +34,16 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function selfpickings()
+    {
+        return $this->hasMany(SelfPicking::class);  // Н:1 зв'язок з self-picking (як фермер)
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(SelfPicking::class, 'self_picking_user');  // Н:Н зв'язок з self-picking (як покупець)
     }
 
 }

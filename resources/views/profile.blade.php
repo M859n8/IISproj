@@ -136,6 +136,61 @@
             background-color: #0056b3;
         }
 
+        /* Стилі для форми в таблиці */
+        #self-picking-form {
+            max-width: 300px; /* Максимальна ширина форми */
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Загальні стилі для інпутів і кнопок у формі */
+        #self-picking-form input[type="text"],
+        #self-picking-form input[type="datetime-local"],
+        #self-picking-form button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* Кнопка "Start Event" */
+        #self-picking-form button {
+            background-color: #629170;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Ховер для кнопки */
+        #self-picking-form button:hover {
+            background-color: #50735b;
+        }
+
+        /* Стилі для кнопки "Create Self Picking" */
+        #create-self-picking-button {
+            background-color: #629170;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* Ховер для кнопки "Create Self Picking" */
+        #create-self-picking-button:hover {
+            background-color: #50735b;
+        }
+
+
 
     </style>
 </head>
@@ -285,6 +340,7 @@
                         <th>Name</th>
                         <th>Price</th>
                         <th>Quantity</th>
+                        <th>Self-Picking</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -294,6 +350,32 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->price }} USD</td>
                             <td>{{ $product->quantity }}</td>
+                            <td>
+                            @if($product->selfPicking && $product->selfPicking->end_time > now())
+                                <span>In Progress</span>
+                            @else
+                                <button type="button" id="create-self-picking-button">Create Self Picking</button>
+
+                                <div id="self-picking-form" style="display:none;">
+                                    <form action="{{ route('selfpicking.start', $product->id) }}" method="POST">
+                                        @csrf
+                                        <label for="address">Address:</label>
+                                        <input type="text" id="address" name="address" required>
+                                        
+                                        <label for="city">City:</label>
+                                        <input type="text" id="city" name="city" required>
+                                        
+                                        <label for="zip_code">Postal Code:</label>
+                                        <input type="text" id="zip_code" name="zip_code" required>
+                                        
+                                        <label for="end_time">Event End Time:</label>
+                                        <input type="datetime-local" id="end_time" name="end_time" required>
+                                        
+                                        <button type="submit">Start Event</button>
+                                    </form>
+                                </div>
+                            @endif
+                            </td>
                             <td>
                                 <div class="product-actions">
                                     <form action="{{ route('products.destroy', $product->id) }}" method="POST">
@@ -329,3 +411,16 @@
     </footer>
 </body>
 </html>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Отримуємо кнопку і форму
+        const button = document.getElementById('create-self-picking-button');
+        const form = document.getElementById('self-picking-form');
+
+        // Додаємо обробник події для кнопки
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // запобігаємо стандартному переходу по посиланню
+            form.style.display = 'block'; // показуємо форму
+        });
+    });
+</script>

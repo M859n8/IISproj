@@ -16,12 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('quantity')->default(0); 
-            $table->string('unit')->nullable(); 
+            $table->string('unit'); 
             $table->integer('rating_sum')->default(0); // сума оцінок
             $table->integer('rating_count')->default(0); // кількість оцінок
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            // $table->unsignedBigInteger('category_id'); // Зовнішній ключ для зв'язку з категоріями
-            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->decimal('price', 8, 2);
             $table->timestamps();
         });

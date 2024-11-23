@@ -25,4 +25,9 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function selfPicking()
+    {
+        return $this->hasOne(SelfPicking::class);  // 1:1 зв'язок з self-picking
+    }
+
 }
