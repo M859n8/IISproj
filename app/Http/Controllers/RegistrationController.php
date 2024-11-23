@@ -15,6 +15,7 @@ class RegistrationController extends Controller
         $request->validate([
             'surname' => 'required|string|max:255',
             'name' => 'required|string|max:255',
+
             // 'email' => 'required|email|max:255|unique:users,email,' . $request->email, // Перевіряємо, що новий email унікальний, крім поточного користувача
         ]);
 
@@ -48,7 +49,7 @@ class RegistrationController extends Controller
     public function regProfile(Request $request){
         // Валідація даних
         $validator = Validator::make($request->all(), [
-            'surname' => 'required|string|max:255',
+            'surname' => 'nullable|string|max:255',
             'name' => 'required|string|max:255',
             // 'email' => 'required|email|unique:users,email', // Перевірка унікальності
             'email' => 'required|email',
@@ -67,7 +68,8 @@ class RegistrationController extends Controller
         } else {
             // Якщо користувач не існує, створити нового
             $user = User::create([
-                'surname' => $request->surname,
+                'surname' => $request->surname ?: null,
+
                 'name' => $request->name,
                 'email' => $request->email,
                 // 'password' => $request->password,

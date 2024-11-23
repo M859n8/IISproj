@@ -24,31 +24,47 @@
             background-color: #629170; /* Зелений колір для меню */
             z-index: 1000;
         }
-
         .horizontal-list {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
             list-style: none;
         }
-
-        .horizontal-list li {
+        .menu-items {
+            display: flex;
+            gap: 15px; /* Відстань між пунктами меню */
+        }
+        .menu-items li,
+        .logout-button li {
+            /*list-style: none;*/
             margin: 0 15px;
         }
-
         .horizontal-list a {
             color: #c4cfc9; /* Замінив білий на сіруватий */
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
         }
-
         .horizontal-list a:hover {
             color: white;
         }
-
-        .horizontal-list .logout {
-            margin-left: auto; /* Це вирівняє елемент по правому краю */
+        .logout-button button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #629170;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0;
         }
+        .logout-button button:hover {
+            background-color: #50735b;
+        }
+
+
         main {
             margin-top: 100px; /* Відступ для закріпленого меню */
             padding: 20px;
@@ -114,13 +130,30 @@
     <header>
         <nav>
             <ul class="horizontal-list">
-                <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
+                <div class="menu-items">
+                    <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
+                    @auth
+                        @if(Auth::user()->role === 'Farmer')
+                            <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
+                        @endif
+                        @if(Auth::user()->role === 'Admin')
+                            <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
+                            <li><a href="{{ route('categorylist') }}"><i class="fas fa-list-alt"></i> Pending Categories</a></li>
+                        @endif
+                    @endauth
+                </div>
                 @auth
-                    @if(Auth::user()->role === 'Farmer')
-                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
-                    @endif
+                <div class="logout-button">
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                </div>
                 @endauth
+<<<<<<< HEAD
                 @auth
                     <li><a href="{{ route('createcategory') }}"><i class="fas fa-plus"></i> Create Category</a></li>
                 @endauth
@@ -128,6 +161,8 @@
                     @csrf
                     <button type="submit">Logout</button>
                 </form></li>
+=======
+>>>>>>> 6ae24b62fec01b2a6572ca2ea815ecd0bf86ce23
             </ul>
         </nav>
     </header>

@@ -29,23 +29,43 @@
 
         .horizontal-list {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
             list-style: none;
+            padding-inline: 40px;
         }
-
-        .horizontal-list li {
+        .menu-items {
+            display: flex;
+            gap: 15px; /* Відстань між пунктами меню */
+        }
+        .menu-items li,
+        .logout-button li {
+            /*list-style: none;*/
             margin: 0 15px;
         }
-
         .horizontal-list a {
-            color:#c4cfc9; /* Замінив білий на сіруватий */
+            color: #c4cfc9; /* Замінив білий на сіруватий */
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
         }
-
         .horizontal-list a:hover {
             color: white;
+        }
+        .logout-button button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #629170;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0;
+        }
+        .logout-button button:hover {
+            background-color: #50735b;
         }
 
         /* Стилі для назви сайту */
@@ -72,13 +92,16 @@
     <header>
         <nav>
             <ul class="horizontal-list">
-                @auth
-                    <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Your profile</a></li>
-                @else
-                    <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
-                @endauth
-                <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
-                @auth
+
+                <div class="menu-items">
+
+                    @auth
+                        <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Your profile</a></li>
+                    @else
+                        <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
+                    @endauth
+                    <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
+                    @auth
                     @if(Auth::user()->role === 'Farmer')
                         <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
                     @endif
@@ -91,6 +114,17 @@
                         <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
                         <li><a href="{{ route('categorylist') }}"><i class="fas fa-list-alt"></i> Pending Categories</a></li>
                     @endif
+                    @endauth
+                </div>
+                @auth
+                <div class="logout-button">
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                </div>
                 @endauth
             </ul>
         </nav>
