@@ -146,7 +146,7 @@
 
 
         <h1>Order a product</h1>
-
+        @auth
         @if(Auth::user()->role === 'Customer')
 
             <form action="{{ route('createOrder', ['id' => $product->id]) }}" method="POST">
@@ -177,6 +177,9 @@
             <p><a href="{{ route('login') }}">Log in as customer</a> to order this product.</p>
 
         @endif
+        @else
+            <p><a href="{{ route('login') }}">Log in as customer</a> to order this product.</p>
+        @endauth
 
         @if(session('success'))
             <div class="alert alert-success">

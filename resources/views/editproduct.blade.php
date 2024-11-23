@@ -134,6 +134,8 @@
                     <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
                     @auth
+                        <li><a href="{{ route('createcategory') }}"><i class="fas fa-plus"></i> Create Category</a></li>
+
                         @if(Auth::user()->role === 'Farmer')
                             <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
                         @endif
@@ -153,16 +155,6 @@
                     </li>
                 </div>
                 @endauth
-<<<<<<< HEAD
-                @auth
-                    <li><a href="{{ route('createcategory') }}"><i class="fas fa-plus"></i> Create Category</a></li>
-                @endauth
-                <li class="logout"><form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit">Logout</button>
-                </form></li>
-=======
->>>>>>> 6ae24b62fec01b2a6572ca2ea815ecd0bf86ce23
             </ul>
         </nav>
     </header>

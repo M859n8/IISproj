@@ -185,6 +185,8 @@
         @php
             $userType = auth()->user()->role;
         @endphp
+
+        @auth
         @if(Auth::user()->role !== 'Admin')
 
         <section class="order-section">
@@ -257,7 +259,7 @@
             @endif
         </section>
         @endif
-
+        @endauth
         <section>
             <h2>Edit Profile</h2>
             <form action="{{ route('profile.update') }}" method="POST">
@@ -273,7 +275,7 @@
                 <button type="submit">Update Profile</button>
             </form>
         </section>
-        
+        @auth
         @if(Auth::user()->role === 'Farmer')
         <section class="order-section">
             <h2>My Products</h2>
@@ -308,7 +310,7 @@
             </table>
         </section>
         @endif
-
+        @endauth
 
 
         <!-- <section>
