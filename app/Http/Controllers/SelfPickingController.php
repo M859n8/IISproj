@@ -14,11 +14,7 @@ class SelfPickingController extends Controller
     public function create(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-        // Перевірка, чи вже є зв'язок з SelfPicking
-        if ($product->selfPicking && $product->selfPicking->end_time < now()) {
-            $product->selfPicking->delete();
-        }
-
+        
         // Створення нової події SelfPicking
         $request->validate([
             'address' => 'required|string|max:255',

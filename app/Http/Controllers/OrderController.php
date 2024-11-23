@@ -44,13 +44,24 @@ class OrderController extends Controller
 
         if ($user->role === 'Farmer') {
             // Отримати замовлення для продуктів, створених фермером
+            $products = $user->products; 
+            foreach ($products as $product) {
+                if ($product->selfPicking) {
+                    // Перевірка, чи час закінчився
+                    if ($product->selfPicking->end_time < Carbon::now()->setTimezone('Europe/Prague')) {
+                        $product->selfPicking->delete(); // Видалення запису
+                    }
+                }
+            }
             $orders = Order::with('product')  // Завантажує замовлення та відповідні продукти.
                 ->whereHas('product', function ($query) use ($user) {  // Фільтрує замовлення за умовами, що продукт належить конкретному фермеру.
                     $query->where('user_id', $user->id);  // Перевіряє, що продукт належить фермеру з $user->id.
                 })
                 ->orderBy('created_at', 'desc')  // Сортує замовлення за датою створення в порядку спадання (найновіші перші).
                 ->get();  // Отримує всі замовлення, які відповідають критеріям.
-            return view('profile', ['orders' => $orders, 'userRole' => $user->role, 'selfPickings' => null]);
+
+            return view('profile', ['orders' => $orders, 'userRole' => $user->role, 'products' => $products, 'selfPickings' => null]);
+
 
 
         } else if ($user->role === 'Customer') {

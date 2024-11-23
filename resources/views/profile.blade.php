@@ -367,13 +367,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(Auth::user()->products as $product)
+                    @foreach($products as $product)
                         <tr>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->price }} USD</td>
                             <td>{{ $product->quantity }}</td>
                             <td>
-                            @if($product->selfPicking && $product->selfPicking->end_time > now())
+                            @if($product->selfPicking)
                                 <span>In Progress</span>
                             @else
                                 <button type="button" id="create-self-picking-button">Create Self Picking</button>
@@ -441,8 +441,14 @@
 
         // Додаємо обробник події для кнопки
         button.addEventListener('click', function(e) {
-            e.preventDefault(); // запобігаємо стандартному переходу по посиланню
-            form.style.display = 'block'; // показуємо форму
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block'; // Показуємо форму
+                button.textContent = 'Hide'; // Змінюємо текст кнопки
+            } else {
+                form.style.display = 'none'; // Ховаємо форму
+                button.textContent = 'Create Self Picking'; // Повертаємо текст кнопки
+            }
         });
+    
     });
 </script>
