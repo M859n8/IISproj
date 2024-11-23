@@ -38,7 +38,7 @@ class OrderController extends Controller
     }
 
 
-    public function userOrders()
+    public function showOrdersSelfPickings()
     {
         $user = auth()->user(); // Отримати поточного користувача
 
@@ -59,7 +59,9 @@ class OrderController extends Controller
                 })
                 ->orderBy('created_at', 'desc')  // Сортує замовлення за датою створення в порядку спадання (найновіші перші).
                 ->get();  // Отримує всі замовлення, які відповідають критеріям.
-            return view('profile', ['orders' => $orders, 'userRole' => $user->role, 'products' => $products]);
+
+            return view('profile', ['orders' => $orders, 'userRole' => $user->role, 'products' => $products, 'selfPickings' => null]);
+
 
 
         } else if ($user->role === 'Customer') {
@@ -68,10 +70,16 @@ class OrderController extends Controller
                 ->where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
-            return view('profile', ['orders' => $orders, 'userRole' => $user->role]);
+
+            $selfPickings = $user->events()
+                ->where('end_time', '>',  Carbon::now()->setTimezone('Europe/Prague'))
+                ->with('product') // Завантажити зв'язаний продукт
+                ->get();
+
+            return view('profile', ['orders' => $orders, 'userRole' => $user->role, 'selfPickings' => $selfPickings]);
 
         }else if ($user->role === 'Admin') {
-            return view('profile', ['orders' => null, 'userRole' => $user->role]);
+            return view('profile', ['orders' => null, 'userRole' => $user->role, 'selfPickings' => null]);
         }
 
     }

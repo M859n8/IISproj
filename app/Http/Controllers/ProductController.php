@@ -5,26 +5,35 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Carbon;
+
 
 class ProductController extends Controller
 {
 
     public function showProduct($id)
     {
-        // Знайти продукт за його ID разом із категоріями
-        $product = Product::with('category')->find($id);
+        // Знайти продукт за його ID разом із категоріями та самозбором
+        $product = Product::with(['category', 'selfPicking'])->find($id);
 
         // Якщо продукт не знайдений, показати сторінку з повідомленням
         if (!$product) {
             return response()->view('product.notfound', ['id' => $id], 404);
         }
 
+        // Отримати самозбір, пов'язаний із продуктом
+        $selfPicking = $product->selfPicking()
+            ->where('end_time', '>',  Carbon::now()->setTimezone('Europe/Prague'))
+            ->first();
+
         // Показати сторінку продукту з переданими даними
         return response()->view('product', [
             'product' => $product,
             'categories' => $product->category,
+            'selfPicking' => $selfPicking, // Передаємо дані самозбору
         ]);
     }
+
 
      // Створення продукту
     public function createProduct(Request $request)

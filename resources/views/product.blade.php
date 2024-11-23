@@ -84,6 +84,25 @@
         p {
             margin-bottom: 10px;
         }
+        .order-details {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color:  #629170;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #50735b;
+        }
 
 
 
@@ -145,34 +164,55 @@
         </p>
 
 
-        <h1>Order a product</h1>
+        <h3>Order a product:</h3>
         @auth
         @if(Auth::user()->role === 'Customer')
-
             <form action="{{ route('createOrder', ['id' => $product->id]) }}" method="POST">
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <div class="order-details">
 
-                <label for="quantity_{{ $product->id }}">Quantity:</label>
                 <!-- <input type="number" id="quantity_{{ $product->id }}" name="quantity" min="1" required> -->
-                <div style="display: flex; align-items: center;">
-                    <input 
-                        type="number" 
-                        id="quantity_{{ $product->id }}" 
-                        name="quantity" 
-                        min="1" 
-                        max="{{ $product->quantity }}" 
-                        required 
+                <div class="quantity-input">
+                    <label for="quantity_{{ $product->id }}">Quantity:</label>
+
+                    <input
+                        type="number"
+                        id="quantity_{{ $product->id }}"
+                        name="quantity"
+                        min="1"
+                        max="{{ $product->quantity }}"
+                        required
                         oninput="validateQuantity('{{ $product->quantity }}', this)"
-                        style="margin-right: 5px;"
                     >
-                    <span>{{ $product->unit }}</span>
+                    <span> {{ $product->unit }}</span>
                 </div>
                 <small id="error-message-{{ $product->id }}" style="color: red; display: none;">
                     Entered quantity exceeds available stock.
                 </small>
                 <button id="order-button-{{ $product->id }}" type="submit">Order</button>
             </form>
+            </div>
+
+            @if ($selfPicking)
+                <div class="self-picking-details">
+                    <h3>Self-Picking Details:</h3>
+                    <p>Place: {{ $selfPicking->address }}</p>
+                    <p>Ends at: {{ $selfPicking->end_time }}</p>
+
+                    @if($selfPicking->end_time > now())
+                        <form method="POST" action="{{ route('self-picking.subscribe', $selfPicking->id) }}">
+                            @csrf
+                            <button type="submit" class="subscribe-button">Subscribe</button>
+                        </form>
+                    @else
+                        <p>This self-picking has ended.</p>
+                    @endif
+                </div>
+            @else
+                <p>No self-picking available for this product.</p>
+            @endif
+
         @else
             <p><a href="{{ route('login') }}">Log in as customer</a> to order this product.</p>
 
@@ -192,6 +232,13 @@
                 {{ session('error') }}
             </div>
         @endif
+
+        @if (session('info'))
+            <div class="alert alert-info">
+                {{ session('info') }}
+            </div>
+        @endif
+
     </div>
 
 </body>

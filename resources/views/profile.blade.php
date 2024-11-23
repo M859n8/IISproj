@@ -315,6 +315,28 @@
         </section>
         @endif
         @endauth
+        @auth
+        @if(Auth::user()->role === 'Customer')
+        <section class="selfpicking-section">
+            <h2>Your Self-Picking events</h2>
+
+            @if($selfPickings->isEmpty())
+                <p>You have no active self-pickings.</p>
+            @else
+                <ul class="self-pickings-list">
+                    @foreach($selfPickings as $selfPicking)
+                        <li>
+                            <h3>{{ $selfPicking->product->name }}</h3>
+                            <p>Place: {{ $selfPicking->address }}</p>
+                            <p>End Time: {{ $selfPicking->end_time }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+        </section>
+        @endif
+        @endauth
+
         <section>
             <h2>Edit Profile</h2>
             <form action="{{ route('profile.update') }}" method="POST">
