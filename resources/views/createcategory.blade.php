@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add new product</title>
+    <title>Create Category</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-
         header {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -110,18 +108,14 @@
         #login-link:hover {
             color: #50735b; /* Темніший зелений при наведенні */
         }
-
-
     </style>
 </head>
-
 <body>
 
-    <!-- Закріплене меню -->
-    <header>
-        <nav>
-            <ul class="horizontal-list">
-            <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
+<header>
+    <nav>
+        <ul class="horizontal-list">
+        <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
                 @auth
                     <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Your profile</a></li>
                 @else
@@ -129,51 +123,63 @@
                 @endauth
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
                 @auth
-                    <li><a href="{{ route('createcategory') }}"><i class="fas fa-plus"></i> Create Category</a></li>
+                    @if(Auth::user()->role === 'Farmer')
+                        <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
+                    @endif
                 @endauth
-            </ul>
-        </nav>
-    </header>
-    <div class="container">
-        <h2>Add new product</h2>
+                @auth
+                    @if(Auth::user()->role === 'Admin')
+                        <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="{{ route('categorylist') }}"><i class="fas fa-list-alt"></i> Pending Categories</a></li>
+                    @endif
+                @endauth
+        </ul>
+    </nav>
+</header>
 
-        <form action="{{ route('createProduct') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="name">Name: *</label>
-                <input type="text" id="name" name="name"  required >
+<div class="container">
+    <h2>Create New Category</h2>
 
-            </div>
-            <div class="form-group">
-                <label for="price">Price: *</label>
-                <input type="number" id="price" name="price" min="0"  required>
+    @if(session('success'))
+        <p class="text-success">{{ session('success') }}</p>
+    @endif
 
-            </div>
+    <form action="{{ route('createCategory') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="name">Category Name: *</label>
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required 
+                value="{{ old('name') }}"
+                style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px;"
+            >
+            @error('name')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
+        </div>
 
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <input type="text" id="description" name="description"  >
+        <div class="form-group">
+            <label for="parent_id">Parent Category: *</label>
+            <select 
+                id="parent_id" 
+                name="parent_id" 
+                style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px;"
+            >
+                <option value="">No Parent</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
-            </div>
+        <p>* mandatory fields</p>
 
-            <div class="form-group">
-                 <label for="category">Categories:</label>
+        <button type="submit" class="btn">Create Category</button>
+    </form>
+</div>
 
-
-                 <select id="category" name="category_id">
-                     <option value="">Select category *</option>
-                     @foreach($categories as $category)
-                        @include('partials.category-option', ['category' => $category, 'level' => 0])
-                     @endforeach
-                 </select>
-            </div>
-            <p> * mandatory fields</p>
-
-            <div class="form-group">
-            <button type="submit" class="btn">Create Product</button>
-            </div>
-
-
-        </form>
 </body>
 </html>

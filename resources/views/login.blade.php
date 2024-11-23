@@ -109,11 +109,6 @@
             <ul class="horizontal-list">
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
-                @auth
-                @if(Auth::user()->role === 'Farmer')
-                    <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
-                @endif
-            @endauth
 
             </ul>
         </nav>

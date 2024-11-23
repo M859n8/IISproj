@@ -115,10 +115,14 @@
         <nav>
             <ul class="horizontal-list">
                 <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
                 @auth
                     @if(Auth::user()->role === 'Farmer')
                         <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
                     @endif
+                @endauth
+                @auth
+                    <li><a href="{{ route('createcategory') }}"><i class="fas fa-plus"></i> Create Category</a></li>
                 @endauth
                 <li class="logout"><form action="{{ route('logout') }}" method="POST">
                     @csrf

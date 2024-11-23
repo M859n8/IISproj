@@ -11,7 +11,8 @@ class SearchProductController extends Controller
     public function search(Request $request)
     {
         // Отримати всі категорії з бази даних
-        $categories = Category::all();
+        // $categories = Category::all();
+        $categories = Category::where('status', 'Approved')->get();
         // Створюємо дерево категорій
         $tree = $this->buildTree($categories);
 

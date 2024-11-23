@@ -81,7 +81,8 @@ class ProductController extends Controller
     // Метод для відображення форми створення продукту
     public function showCreateForm()
     {
-        $categories = Category::all(); // Отримуємо всі категорії
+        // $categories = Category::all(); // Отримуємо всі категорії
+        $categories = Category::where('status', 'Approved')->get();
         return view('addproduct', compact('categories'));
     }
 

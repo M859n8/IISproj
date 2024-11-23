@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users List</title>
+    <title>Pending Categories</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
@@ -15,9 +15,6 @@
 
         header {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
             position: fixed;
             top: 0;
             width: 100%;
@@ -81,6 +78,19 @@
             color: white;
         }
 
+        .btn-approve {
+            padding: 5px 10px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-approve:hover {
+            background-color: #229954;
+        }
+
         .btn-delete {
             padding: 5px 10px;
             background-color: #e74c3c;
@@ -109,7 +119,7 @@
     <header>
         <nav>
             <ul class="horizontal-list">
-                <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
                 @auth
                     <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Your profile</a></li>
                 @else
@@ -121,7 +131,7 @@
                 @endauth
                 @auth
                     @if(Auth::user()->role === 'Admin')
-                        <li><a href="{{ route('categorylist') }}"><i class="fas fa-list-alt"></i> Pending Categories</a></li>
+                        <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
                     @endif
                 @endauth
             </ul>
@@ -130,30 +140,35 @@
 
     <main>
         <section>
-            <h2>Users List</h2>
+            <h2>Pending Categories</h2>
+
+            @if(session('success'))
+                <div style="color: green; margin-top: 10px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <table>
                 <thead>
                     <tr>
-                        <th>Surname</th>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Joined</th>
-                        <th>Role</th>
+                        <th>Parent Category</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $user)
+                    @foreach($categories as $category)
                         <tr>
-                            <td>{{ $user->surname }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->created_at->format('F j, Y') }}</td>
-                            <td>{{ $user->role }}</td>
+                            <td>{{ $category->name }}</td>
+                            <td>{{ $category->parent ? $category->parent->name : 'None' }}</td>
                             <td>
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                <form action="{{ route('categoriesApprove', $category->id) }}" method="POST" style="display: inline;">
                                     @csrf
-                                    @method('DELETE')
+                                    <button type="submit" class="btn-approve">Approve</button>
+                                </form>
+
+                                <form action="{{ route('categoriesDelete', $category->id) }}" method="POST" style="display: inline;">
+                                    @csrf
                                     <button type="submit" class="btn-delete">Delete</button>
                                 </form>
                             </td>
