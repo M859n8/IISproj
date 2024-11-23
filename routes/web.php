@@ -71,7 +71,7 @@ Route::post('/product/{id}', [OrderController::class, 'createOrder'])->name('cre
 //     return view('profile');
 // })->name('profile')->middleware('auth');
 
-Route::get('/profile', [OrderController::class, 'userOrders'])
+Route::get('/profile', [OrderController::class, 'showOrdersSelfPickings'])
     ->name('profile')
     ->middleware('auth');
 
@@ -106,6 +106,8 @@ Route::delete('/userlist/{id}', [AdminPageController::class, 'destroy'])->name('
 Route::get('/products/{id}/edit', [FarmerProductController::class, 'edit'])->name('editproduct');
 Route::put('/products/{id}', [FarmerProductController::class, 'update'])->name('products.update');
 Route::delete('/product/{id}', [FarmerProductController::class, 'destroy'])->name('products.destroy');
+
+Route::post('/self-picking/{id}/subscribe', [SelfPickingController::class, 'subscribe'])->name('self-picking.subscribe');
 
 Route::put('/orders/{id}/ready', [OrderController::class, 'statusPrepeared'])->name('orderReady');
 
