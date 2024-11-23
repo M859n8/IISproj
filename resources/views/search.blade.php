@@ -26,23 +26,42 @@
 
         .horizontal-list {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
             list-style: none;
         }
-
-        .horizontal-list li {
+        .menu-items {
+            display: flex;
+            gap: 15px; /* Відстань між пунктами меню */
+        }
+        .menu-items li,
+        .logout-button li {
+            /*list-style: none;*/
             margin: 0 15px;
         }
-
         .horizontal-list a {
-            color: #c4cfc9; /* Сіруватий колір тексту */
+            color: #c4cfc9; /* Замінив білий на сіруватий */
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
         }
-
         .horizontal-list a:hover {
             color: white;
+        }
+        .logout-button button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #629170;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0;
+        }
+        .logout-button button:hover {
+            background-color: #50735b;
         }
 
         /* Пошукова форма */
@@ -90,6 +109,7 @@
         .search-section button:hover {
             background-color: #50735b;
         }
+/*************************************************/
         .result-section {
             margin-top: 10px;
             padding: 20px;
@@ -99,85 +119,42 @@
             margin: 20px auto;
         }
 
-        .product-table {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
+       .product-table {
+           width: 100%;
+           border-collapse: collapse;
+           margin: 20px 0;
+           font-size: 16px;
+           text-align: left;
+       }
 
-        .table-header, .product-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e0e0e0;
-            align-items: center;
-        }
+       .product-table th, .product-table td {
+           padding: 12px;
+           border: 1px solid #ddd;
+       }
 
-        .table-header {
-            font-weight: bold;
-            background-color: #f0f0f0;
-            padding-bottom: 15px;
-        }
+       .product-table th {
+           background-color: #f4f4f4;
+           font-weight: bold;
+       }
 
-        .table-header span, .product-row span, .product-row a {
-            padding: 5px 10px;
-        }
-        .table-header span {
-            /* padding: 5px 10px; */
-            /* Використовуємо ті ж значення flex-grow для відповідних колонок */
-            /* flex-grow: 2; Для назви продукту */
-            text-align: left;
-        }
+       .product-table tr:nth-child(even) {
+           background-color: #f9f9f9;
+       }
 
-        .table-header .name-header {
-            flex: 2; /* Назва продукту */
-        }
+       .product-table a.product-name {
+           color: #122910;
+           text-decoration: none;
+       }
 
-        .table-header .description-header {
-            flex-grow: 4; /* Для опису продукту */
-        }
+       .product-table a.product-name:hover {
+           text-decoration: underline;
+       }
 
-        .table-header .price-header{
-            flex-grow: 1; /* Для ціни і категорії */
-        }
+       .star-symbol {
+           color: gold;
+           margin-left: 5px;
+       }
 
-        .table-header .rate-header {
-            flex: 1; /* Оцінка */
-        }
-
-        .product-name {
-            font-weight: bold;
-            color: black;
-            text-decoration: none;
-            flex: 2;
-        }
-
-        .product-name:hover {
-            text-decoration: underline;
-        }
-
-        .product-description {
-            color: #666;
-            flex: 4; /* Опис продукту – більше місця */
-        }
-
-        .product-price {
-            color: #999;
-            flex: 1; /* Ціна продукту */
-            text-align: left;
-        }
-
-        .product-rate {
-            font-weight: bold;
-            text-align: center;
-            /* color: #4CAF50; Колір зеленого для оцінки */
-        }
-
-        .star-symbol {
-            color: gold; /* Золотий колір для зірочки */
-            /* font-size: 1.2em; Можна налаштувати розмір зірочки */
-            /* margin-left: 5px; Відстань між оцінкою та зірочкою */
-        }
     </style>
 </head>
 <body>
@@ -185,30 +162,37 @@
     <header>
         <nav>
             <ul class="horizontal-list">
-                <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
 
-                @auth
-                    <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Your profile</a></li>
-                @else
-                    <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
-                @endauth
+                <div class="menu-items">
+                    <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
 
-                @auth
+                    @auth
+                        <li><a href="{{ route('profile') }}"><i class="fas fa-user"></i> Your profile</a></li>
+                    @else
+                        <li><a href="{{ route('register') }}"><i class="fas fa-user"></i> Your profile</a></li>
+                    @endauth
+                    @auth
                     @if(Auth::user()->role === 'Farmer')
                         <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
                     @endif
-                @endauth
-                @auth
                     @if(Auth::user()->role === 'Admin')
                         <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
                     @endif
+                    @endauth
+                </div>
+                @auth
+                <div class="logout-button">
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                </div>
                 @endauth
             </ul>
         </nav>
-
     </header>
-
-    <!-- Пошукова форма -->
     <!-- Пошукова форма -->
     <section class="search-section">
         <h2>Find your product</h2>
@@ -222,37 +206,54 @@
                 @endforeach
             </select>
 
+            <select id="farmer" name="farmer">
+                <option value="">All Farmers</option>
+                @foreach($farmers as $farmer)
+                    <option value="{{ $farmer->id }}" {{ request('farmer') == $farmer->id ? 'selected' : '' }}>
+                        {{ $farmer->name }}</option>
+                @endforeach
+            </select>
+
             <!-- Пошук товару -->
             <input type="text" id="search" name="query" placeholder="Enter product name">
 
+            <select name="sort_order" id="sort-order" onchange="this.form.submit()">
+                <option value="" {{ request('sort_order') === null ? 'selected' : '' }}>Sort by price</option>
+                <option value="asc" {{ request('sort_order') === 'asc' ? 'selected' : '' }}>Low to High</option>
+                <option value="desc" {{ request('sort_order') === 'desc' ? 'selected' : '' }}>High to Low</option>
+            </select>
             <!-- Кнопка пошуку -->
             <button type="submit">Search</button>
         </form>
     </section>
 
     <section class="result-section">
+
+        <!-- Result table -->
         @if(isset($products) && $products->isNotEmpty())
-            <div class="product-table">
-                <div class="table-header">
-                    <span class="name-header">Name</span>
-                    <span class="description-header">Description</span>
-                    <span class="price-header">Price</span>
-                    <span class="rate-header">Rating</span>
-                </div>
-                @foreach ($products as $product)
-                    <div class="product-row">
-                        <a href="{{ route('productPage', $product->id) }}" class="product-name">{{ $product->name }}</a>
-                        <span class="product-description">{{ $product->description }}</span>
-                        <span class="product-price">{{ $product->price }} $</span>
-                        <!-- <span class="product-rate">{{ $product->rating_count > 0 ? round($product->rating_sum / $product->rating_count, 2) : 'No ratings yet' }} 
-                        $</span> -->
-                        <span class="product-rate">
-                            {{ $product->rating_count > 0 ? round($product->rating_sum / $product->rating_count, 2) : 'No ratings yet' }} 
-                            <span class="star-symbol">★</span>
-                        </span>
-                    </div>
-                @endforeach
-            </div>
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($products as $product)
+                        <tr>
+                            <td><a href="{{ route('productPage', $product->id) }}" class="product-name">{{ $product->name }}</a></td>
+                            <td>{{ $product->description }}</td>
+                            <td>{{ $product->price }} $</td>
+                            <td>
+                                {{ $product->rating_count > 0 ? round($product->rating_sum / $product->rating_count, 2) : 'No ratings yet' }}
+                                <span class="star-symbol">★</span>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         @elseif(isset($products))
             <p>Not found</p>
         @endif

@@ -27,11 +27,17 @@
 
         .horizontal-list {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
             list-style: none;
         }
-
-        .horizontal-list li {
+        .menu-items {
+            display: flex;
+            gap: 15px; /* Відстань між пунктами меню */
+        }
+        .menu-items li,
+        .logout-button li {
+            /*list-style: none;*/
             margin: 0 15px;
         }
 
@@ -45,10 +51,10 @@
         .horizontal-list a:hover {
             color: white;
         }
-
-        .horizontal-list .logout {
-            margin-left: auto; /* Це вирівняє елемент по правому краю */
+        .logout-button button {
+            margin: 0;
         }
+
         main {
             margin-top: 100px; /* Відступ для закріпленого меню */
             padding: 20px;
@@ -137,20 +143,28 @@
     <header>
         <nav>
             <ul class="horizontal-list">
-                <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
-                @auth
+                <div class="menu-items">
+                    <li><a href="{{ route('main') }}"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="{{ route('search') }}"><i class="fas fa-search"></i> Search</a></li>
+                    @auth
                     @if(Auth::user()->role === 'Farmer')
                         <li><a href="{{ route('addproduct') }}"><i class="fas fa-plus"></i> Add new product</a></li>
                     @endif
+                    @if(Auth::user()->role === 'Admin')
+                        <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
+                    @endif
+                    @endauth
+                </div>
+                @auth
+                <div class="logout-button">
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                </div>
                 @endauth
-                @if(Auth::user()->role === 'Admin')
-                    <li><a href="{{ route('users.list') }}"><i class="fas fa-users"></i> Users</a></li>
-                @endif
-                <li class="logout"><form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit">Logout</button>
-                </form></li>
             </ul>
         </nav>
     </header>

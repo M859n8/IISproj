@@ -31,11 +31,13 @@ Route::get('/search',[SearchProductController::class, 'search'])->name('search')
 
 
 //взаємодія з дб??
-Route::get('/search/results', function () {
-    $query = request('query'); // Отримуємо пошуковий запит із форми
-    // Додай логіку для обробки пошукового запиту та повернення результатів.
-    return view('search.results', ['query' => $query]); // Передаємо пошуковий запит у в'юху
-})->name('search.results');
+// Route::get('/search/results', function () {
+//     $query = request('query'); // Отримуємо пошуковий запит із форми
+//     // Додай логіку для обробки пошукового запиту та повернення результатів.
+//     return view('search.results', ['query' => $query]); // Передаємо пошуковий запит у в'юху
+// })->name('search.results');
+// Route::get('/search/priceFilter', [SearchProductController::class, 'priceFilter'])->name('priceFilter');
+
 
 
 Route::get('/product/{id}', [ProductController::class, 'showProduct'])->name('productPage');

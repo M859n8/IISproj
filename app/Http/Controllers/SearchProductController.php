@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\User;
+
 
 class SearchProductController extends Controller
 {
@@ -17,6 +19,9 @@ class SearchProductController extends Controller
 
         // Створити базовий запит для пошуку продуктів
         $productsQuery = Product::query();
+
+        $users = User::all();
+        $farmers = $users->where('role', 'LIKE', "Farmer");
 
         // Якщо є запит на пошук по імені
         $query = $request->input('query');
@@ -33,11 +38,21 @@ class SearchProductController extends Controller
             });
         }
 
+        $farmerId = $request->input('farmer');
+        if ($farmerId) {
+            $productsQuery->where('user_id', $farmerId);
+        }
+
+        if ($request->filled('sort_order')) {
+            $productsQuery->orderBy('price', $request->input('sort_order') === 'desc' ? 'desc' : 'asc');
+        }
+
+
         // Отримати результати пошуку
         $products = $productsQuery->get();
 
         // Повернути форму і результати на ту ж саму сторінку
-        return view('search', ['categories' => $tree, 'products' => $products]);
+        return view('search', ['categories' => $tree, 'products' => $products, 'farmers' => $farmers]);
     }
     // Функція для побудови дерева категорій
     private function buildTree($categories, $parentId = null)
@@ -50,5 +65,20 @@ class SearchProductController extends Controller
             }
         }
         return $tree;
+    }
+
+    public function priceFilter(Request $request)
+    {
+        $query = Product::query();
+
+        // Сортування за ціною
+        if ($request->filled('sort_order')) {
+            $query->orderBy('price', $request->input('sort_order') === 'desc' ? 'desc' : 'asc');
+        }
+
+        // Отримання продуктів
+        $products = $query->get();
+
+        return view('search', compact('products'));
     }
 }

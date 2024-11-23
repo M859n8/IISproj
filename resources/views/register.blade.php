@@ -140,7 +140,7 @@
             <!-- Фамілія -->
             <div class="form-group">
                 <label for="name">Surname *</label>
-                <input type="text" name="surname" id="surname" value="{{ old('surname') }}" required autofocus>
+                <input type="text" name="surname" id="surname" value="{{ old('surname') }}" autofocus>
                 @error('surname')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
