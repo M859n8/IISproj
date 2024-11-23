@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Carbon;
 
-
+//mk
 class ProductController extends Controller
 {
 

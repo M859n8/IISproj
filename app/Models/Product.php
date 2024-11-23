@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+//mk
 class Product extends Model
 {
     protected $fillable = ['name', 'description','quantity','unit', 'rating_sum', 'rating_count', 'price'];

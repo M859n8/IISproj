@@ -39,7 +39,7 @@ class SelfPickingController extends Controller
 
         return redirect()->back()->with('success', 'Self-picking event created.');
     }
-
+//mk
     public function subscribe($id)
     {
         // Отримуємо поточного користувача

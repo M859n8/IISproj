@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\User;
 
-
+//mk
 class SearchProductController extends Controller
 {
     public function search(Request $request)
