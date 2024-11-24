@@ -1,5 +1,5 @@
 <?php
-
+//mk
 use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FarmerProductController;
@@ -20,9 +20,6 @@ Route::get('/', function () {
     return view('main');
 })->name('main');
 
-Route::get('/cart', function () {
-    return view('cart'); // Сторінка кошика
-})->name('cart');
 
 // Route::get('/addproduct', function () {
 //     return view('addproduct');

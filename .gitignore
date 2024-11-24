@@ -19,3 +19,5 @@ yarn-error.log
 /.vscode
 /.zed
 .env
+app/Providers/AppServiceProvider.php
+config/session.php

@@ -19,6 +19,9 @@ php artisan migrate:reset
 
 php artisan make:controller OrderController
 
+git rm --cached .env  //прибрати з кешу гіт
+
+
 
 
 

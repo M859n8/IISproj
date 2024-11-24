@@ -1,4 +1,5 @@
-<!-- Файл resources/views/partials/category-option.blade.php -->
+
+
 <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
     {{ str_repeat('—', $level) }} {{ $category->name }}
 </option>
