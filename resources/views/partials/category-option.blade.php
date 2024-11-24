@@ -1,4 +1,4 @@
-
+<!-- category tree -->
 
 <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
     {{ str_repeat('—', $level) }} {{ $category->name }}

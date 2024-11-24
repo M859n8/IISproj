@@ -2,34 +2,22 @@
 
 namespace App\Models;
 
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-//mk
-// НЕ ПРОПИСАНІ ЗВЯЗКИ
+
 class Order extends Model
 {
-    // use HasFactory; // Це створилося само не знаю що це
 
     protected $fillable = ['product_id', 'user_id', 'status', 'quantity'];
 
-    // Зв’язок із продуктом
+ 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class);//n-1 with product
     }
 
-    // Зв’язок із користувачем
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class); //n-1 with user
     }
 
-//     // Можливі значення статусу
-//     const TYPE_SELF_STORAGE = 'self-storage';
-//     const TYPE_DELEGATED = 'delegated';
-//
-//     // Встановлення дефолтного значення для статусу
-//     protected $attributes = [
-//         'status' => self::TYPE_DELEGATED, // Дефолтне значення
-//     ];
 }

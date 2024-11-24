@@ -24,7 +24,6 @@ class ProductSeeder extends Seeder
             'quantity' => 5,
             'unit' => 'kg',
             'price' => 15.99,
-            // 'user_id' => 1, // Ідентифікатор користувача, який створив продукт
         ]);
 
         $apple1 = $user1->products()->create([
@@ -33,7 +32,6 @@ class ProductSeeder extends Seeder
             'quantity' => 1,
             'unit' => 'kg',
             'price' => 14.99,
-            // 'user_id' => 1,
         ]);
 
         $broccoli = $user->products()->create([
@@ -42,7 +40,6 @@ class ProductSeeder extends Seeder
             'quantity' => 10,
             'unit' => 'kg',
             'price' => 22.50,
-            // 'user_id' => 1,
 
         ]);
 
@@ -52,7 +49,6 @@ class ProductSeeder extends Seeder
             'quantity' => 1,
             'unit' => 'l',
             'price' => 20.00,
-            // 'user_id' => 1,
 
         ]);
 
@@ -62,7 +58,6 @@ class ProductSeeder extends Seeder
             'quantity' => 5,
             'unit' => 'peaces',
             'price' => 18.00,
-            // 'user_id' => 2,
 
         ]);
 
@@ -72,19 +67,17 @@ class ProductSeeder extends Seeder
             'quantity' => 1,
             'unit' => 'kg',
             'price' => 45.00,
-            // 'user_id' => 2,
 
         ]);
 
-        // Продукти та категорії (багато до багатьох)
-        $apple->category()->attach([1, 5, 8]); // Apple належить до категорій Fruits і Apples
-        $apple1->category()->attach([1, 5, 8]); // Apple належить до категорій Fruits і Apples
+        // products and categories : n-n
+        $apple->category()->attach([1, 5, 8]); // Apple belongs to Fruits and Apples
+        $apple1->category()->attach([1, 5, 8]); // Apple belongs to Fruits and Apples
 
-        $broccoli->category()->attach(2);         // Broccoli належить до категорії Vegetables
-        $milk->category()->attach(3);                  // Milk належить до категорії Dairy Products
-        $bread->category()->attach(4);                // Bread належить до категорії Bakery
+        $broccoli->category()->attach(2);         // Broccoli belongs to Vegetables
+        $milk->category()->attach(3);                  // Milk belongs to Dairy Products
+        $bread->category()->attach(4);                // Bread belongs to Bakery
         $cheddar->category()->attach(3);
-
 
     }
 }

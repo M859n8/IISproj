@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- mk-->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Products</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        /* Загальні стилі */
+        
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -22,7 +21,7 @@
            position: fixed;
            top: 0;
            width: 100%;
-           background-color: #629170; /* Замінив зелений на сіро-зелений */
+           background-color: #629170;
            z-index: 1000;
         }
 
@@ -34,15 +33,14 @@
         }
         .menu-items {
             display: flex;
-            gap: 15px; /* Відстань між пунктами меню */
+            gap: 15px; 
         }
         .menu-items li,
         .logout-button li {
-            /*list-style: none;*/
             margin: 0 15px;
         }
         .horizontal-list a {
-            color: #c4cfc9; /* Замінив білий на сіруватий */
+            color: #c4cfc9;
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
@@ -66,7 +64,7 @@
             background-color: #50735b;
         }
 
-        /* Пошукова форма */
+        /* search section */
         .search-section {
             padding: 20px;
             background-color: #fff;
@@ -160,7 +158,7 @@
     </style>
 </head>
 <body>
-    <!-- Меню зверху -->
+    <!-- menu -->
     <header>
         <nav>
             <ul class="horizontal-list">
@@ -196,19 +194,19 @@
             </ul>
         </nav>
     </header>
-    <!-- Пошукова форма -->
+    <!-- search form -->
     <section class="search-section">
         <h2>Find your product</h2>
 
         <form action="{{ route('search') }}" method="GET">
-            <!-- Вибір категорії -->
+            <!-- category selection -->
             <select id="category" name="category">
                 <option value="">All Categories</option>
                 @foreach($categories as $category)
                     @include('partials.category-option', ['category' => $category, 'level' => 0])
                 @endforeach
             </select>
-
+            <!-- farmer selection -->
             <select id="farmer" name="farmer">
                 <option value="">All Farmers</option>
                 @foreach($farmers as $farmer)
@@ -217,19 +215,20 @@
                 @endforeach
             </select>
 
-            <!-- Пошук товару -->
+            <!-- search by name -->
             <input type="text" id="search" name="query" placeholder="Enter product name">
-
+            <!-- sort by price -->
             <select name="sort_order" id="sort-order" onchange="this.form.submit()">
                 <option value="" {{ request('sort_order') === null ? 'selected' : '' }}>Sort by price</option>
                 <option value="asc" {{ request('sort_order') === 'asc' ? 'selected' : '' }}>Low to High</option>
                 <option value="desc" {{ request('sort_order') === 'desc' ? 'selected' : '' }}>High to Low</option>
             </select>
-            <!-- Кнопка пошуку -->
+
             <button type="submit">Search</button>
         </form>
     </section>
 
+    <!-- result section  -->
     <section class="result-section">
 
         <!-- Result table -->

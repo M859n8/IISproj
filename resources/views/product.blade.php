@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- mk-->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $product->name }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        /* Загальні стилі */
+        
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -22,7 +21,7 @@
            position: fixed;
            top: 0;
            width: 100%;
-           background-color: #629170; /* Замінив зелений на сіро-зелений */
+           background-color: #629170; 
            z-index: 1000;
         }
 
@@ -34,15 +33,14 @@
         }
         .menu-items {
             display: flex;
-            gap: 15px; /* Відстань між пунктами меню */
+            gap: 15px; 
         }
         .menu-items li,
         .logout-button li {
-            /*list-style: none;*/
             margin: 0 15px;
         }
         .horizontal-list a {
-            color: #c4cfc9; /* Замінив білий на сіруватий */
+            color: #c4cfc9; 
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
@@ -66,7 +64,7 @@
             background-color: #50735b;
         }
 
-
+        /* page content */
         .product-details {
             background-color: #fff;
             padding: 20px;
@@ -111,7 +109,7 @@
     </style>
 </head>
 <body>
-    <!-- Меню зверху -->
+    <!-- menu -->
     <header>
         <nav>
             <ul class="horizontal-list">
@@ -149,6 +147,7 @@
             </ul>
         </nav>
     </header>
+    <!-- product content section  -->
     <div class="product-details">
         <h1>{{ $product->name }}</h1>
         <p><strong>Description:</strong> {{ $product->description }}</p>
@@ -165,7 +164,7 @@
         </ul>
         </p>
 
-
+        <!-- order a product section  -->
         <h3>Order a product:</h3>
         @auth
         @if(Auth::user()->role === 'Customer')
@@ -174,7 +173,6 @@
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <div class="order-details">
 
-                <!-- <input type="number" id="quantity_{{ $product->id }}" name="quantity" min="1" required> -->
                 <div class="quantity-input">
                     <label for="quantity_{{ $product->id }}">Quantity:</label>
 
@@ -195,7 +193,7 @@
                 <button id="order-button-{{ $product->id }}" type="submit">Order</button>
             </form>
             </div>
-
+            <!-- self-picking section  -->
             @if ($selfPicking)
                 <div class="self-picking-details">
                     <h3>Self-Picking Details:</h3>
@@ -246,9 +244,10 @@
 </body>
 </html>
 
+<!-- check ordered quantity  -->
 <script>
     function validateQuantity(maxQuantity, inputElement) {
-        maxQuantity = parseInt(maxQuantity, 10); // Перетворення в число
+        maxQuantity = parseInt(maxQuantity, 10); 
         const errorMessage = document.getElementById(`error-message-${inputElement.id.split('_')[1]}`);
         const orderButton = document.getElementById(`order-button-${inputElement.id.split('_')[1]}`);
         if (parseInt(inputElement.value, 10) > maxQuantity) {
