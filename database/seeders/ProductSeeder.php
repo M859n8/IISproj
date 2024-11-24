@@ -17,7 +17,6 @@ class ProductSeeder extends Seeder
         $user = User::find(2);
         $user1 = User::find(3);
 
-        // Створення продуктів
         $apple = $user->products()->create([
             'name' => 'Apple Gala green',
             'description' => 'Fresh red apples from the local farm.',

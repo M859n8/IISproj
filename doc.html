@@ -51,10 +51,10 @@
 </table>
 
 <p>Diagram případů užití </p> 
-<img src="usecaseIIS.png" alt="Use-case" style="max-width: 100%; height: auto;">
+<img src="doc/usecaseIIS.png" alt="Use-case" style="max-width: 100%; height: auto;">
 <h3>Video</h3>
 
-<p>Přiložte odkaz na komentované video demostrující použití informačního systému. Zaměřte se na případy užití definované zadáním (např. registrace uživatele, správa uživatelů a činnosti jednotlivých rolí). Video nahrajte například na VUT Google Drive, kde ho bude možné přímo spustit z odkazu.</p> 
+<p><a href="https://www.youtube.com/watch?v=ya8kqSgZ3gA" target="_blank">Zhlédnout video na YouTube</a></p>
 
 <h2>Implementace</h2>
 <ol>
@@ -77,12 +77,23 @@
 		pokud je pro tento produkt dostupne. To je implementováno funkcí 'subscribe' v kontroleru 'SelfPickingController'.</li>
 	
 	<li>Na stránce uživatele jsou zobrazeny jeho objednávky a/nebo události, na které je přihlášen nebo které vytvořil. 
-	Tato funkcionalita je realizována funkcí 'showOrdersSelfPickings' v kontroleru 'OrderController'.</li>
+	Tato funkcionalita je realizována funkcí 'showOrdersSelfPickings' v kontroleru 'OrderController'.
+	Na stránce farmáře je možnost mazat a upravovat své produkty - FarmerProductController.php.
+	A taky vytvářet samosběry - SelfPickingController.php(funkce create()).
+	Na stránce zákazníka je možnost ohodnotit zakoupený produkt - OrderController.php(funkce rate())</li>
+	
+	<li>Administrátor: Upravuje uživatele, schvaluje nebo maže kategorie navržené uživateli - AdminPageController.php.
+		Vytváří nové schválené kategorie - CategoryController.php.
+	</li> 
+  	<li>Registrovaný uživatel: Upravuje svůj profil - RegistrationController.php (funkce update()).
+		Vytváří nové neschválené kategorie - podobně jako administrátor. 
+	</li> 
+</ul> 
 </ol>
 <h3>Databáze</h3>
 
 Schéma relační databáze (tabulek v databázi).
-<img src="er.png" alt="ER" style="max-width: 100%; height: auto;">
+<img src="doc/er.png" alt="ER" style="max-width: 100%; height: auto;">
 
 
 <h2>Instalace</h2>
@@ -110,7 +121,7 @@ Schéma relační databáze (tabulek v databázi).
 <li>Softwarové požadavky: PHP: 8.2, 
 	Laravel Framework: 11.9
 	</li>
-<li>Databáze byla vytvořena na platformě Aiven. </li>
+<li>Databáze byla vytvořena na platformě Aiven. Pro připojení k jiné databázi je potřeba vytvořit databázi a aktualizovat následující údaje v souboru .env.</li>
 	<h4>Připojení k databázi se provádí v souboru .env pomocí následujících proměnných:</h4>
 	<ul>
 	<li>DB_CONNECTION=mysql</li>
@@ -127,7 +138,6 @@ Schéma relační databáze (tabulek v databázi).
 </ul>
 
 <h2>Známé problémy</h2>
-<p>Zde popište, které body zadání nejsou implementovány a z jakého důvodu. Např. &bdquo;Z časových důvodů nebyla implementována správa uživatelů.&rdquo; Pomůžete tím zrychlit hodnocení, když neimplementované funkce nebudeme muset dlouze hledat.</p>
-
+<p>V naší implementaci nebyla vyčleněna role moderátora z důvodu nedostatku času. Veškeré možnosti jeho role převzal na sebe administrátor.</p>
 </body>
 </html>

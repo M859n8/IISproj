@@ -115,7 +115,7 @@ class OrderController extends Controller
         $product->save();
         $order->delete();
 
-        return redirect()->back()->with('success', 'Оцінка додана успішно!');
+        return redirect()->back()->with('success', 'Rating was successful!');
     }
 
 

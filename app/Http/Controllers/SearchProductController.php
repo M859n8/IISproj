@@ -9,7 +9,7 @@ use App\Models\User;
 
 class SearchProductController extends Controller
 {
-    //function that shows all informaition for search page 
+    //function that shows all information for search page 
     public function search(Request $request)
     {
         //get categories

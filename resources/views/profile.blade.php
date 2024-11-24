@@ -319,7 +319,7 @@
 
         @auth
         @if(Auth::user()->role === 'Customer')
-        <!-- Section for self pickin events for customer -->
+        <!-- Section for self picking events for customer -->
         <section class="selfpicking-section">
             <h2>Your Self-Picking events</h2>
 
