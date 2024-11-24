@@ -57,8 +57,28 @@
 <p>Přiložte odkaz na komentované video demostrující použití informačního systému. Zaměřte se na případy užití definované zadáním (např. registrace uživatele, správa uživatelů a činnosti jednotlivých rolí). Video nahrajte například na VUT Google Drive, kde ho bude možné přímo spustit z odkazu.</p> 
 
 <h2>Implementace</h2>
-<p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
+<ol>
+	<li>Zobrazení všech produktů je implementováno na stránce vyhledávání. 
+		Za zobrazení produktů, vyhledávání produktů a filtrování podle kategorií, 
+		farmářů nebo cen odpovídá funkce 'search' v kontroleru 'SearchProductController'. 
+		Ze seznamu všech produktů je možné přejít na stránku konkrétního produktu, 
+		za což odpovídá funkce 'showProduct' v kontroleru 'ProductController'.</li>
 
+	<li>Vytváření produktů je dostupné na stránce „Přidat nový produkt“. 
+		Tato stránka je viditelná pouze pro registrované uživatele s rolí farmář. 
+		Implementace probíhá prostřednictvím funkce 'createProduct' v kontroleru 'ProductController'. 
+		Při přidávání produktu je důležité vyplnit vazební tabulku mezi produktem a kategoriemi (vztah „mnoho na mnoho“). 
+		Proto tento kontroler obsahuje pomocnou funkci 'getParentCategories' pro určení všech nadřazených kategorií.</li>
+	
+	<li>Na stránce produktu mají registrovaní uživatelé s rolí kupující možnost objednat produkt 
+		(realizováno funkcí 'createOrder' v kontroleru 'OrderController').</li>
+	
+	<li>Na stránce produktu mají registrovaní uživatelé s rolí kupující možnost přihlásit se k samosběru (SelfPicking), 
+		pokud je pro tento produkt dostupne. To je implementováno funkcí 'subscribe' v kontroleru 'SelfPickingController'.</li>
+	
+	<li>Na stránce uživatele jsou zobrazeny jeho objednávky a/nebo události, na které je přihlášen nebo které vytvořil. 
+	Tato funkcionalita je realizována funkcí 'showOrdersSelfPickings' v kontroleru 'OrderController'.</li>
+</ol>
 <h3>Databáze</h3>
 
 Schéma relační databáze (tabulek v databázi).
@@ -67,11 +87,43 @@ Schéma relační databáze (tabulek v databázi).
 
 <h2>Instalace</h2>
 
-Stručně popište: 
 <ul>
-<li>postup instalace na server,</li>
-<li>softwarové požadavky (verze PHP apod.),</li>
-<li>jak rozbalit, konfigurovat, inicializovat databázi, ...</li>
+<li>Jako platformu pro nasazení aplikace jsme zvolili Koyeb. 
+	Tato platforma jako zdroj využívá repozitář na GitHubu. 
+	Nastavení probíhá pomocí definování proměnných v souboru .env.</li>
+
+
+<h4>Hlavní proměnné pro nasazení aplikace a nastavení prostředí:</h4>
+	<ul>
+		<li>APP_NAME – Název aplikace, například: APP_NAME=MojeAplikace.</li>
+		<li>APP_ENV – Režim prostředí: APP_ENV=production pro produkční nasazení, nebo APP_ENV=local pro lokální testování.</li>
+		<li>APP_KEY – Bezpečnostní klíč generovaný příkazem php artisan key:generate.</li>
+		<li>APP_DEBUG – Debug režim (true nebo false): APP_DEBUG=false.</li>
+		<li>APP_URL – URL aplikace</li>
+	</ul>
+
+	<h4>Build aplikace:</h4>
+	<h5>composer install --no-dev --optimize-autoloader</h5>
+	<h4>Spuštění aplikace na platformě Koyeb :</h4> 
+	<h5>php artisan serve --host=0.0.0.0 --port=$PORT</h5>
+
+<li>Softwarové požadavky: PHP: 8.2, 
+	Laravel Framework: 11.9
+	</li>
+<li>Databáze byla vytvořena na platformě Aiven. </li>
+	<h4>Připojení k databázi se provádí v souboru .env pomocí následujících proměnných:</h4>
+	<ul>
+	<li>DB_CONNECTION=mysql</li>
+		<li>DB_HOST=mysql-1613c158-maryna-53b0.f.aivencloud.com</li>
+		<li>DB_PORT=22618</li>
+		<li>DB_DATABASE=defaultdb</li>
+		<li>DB_USERNAME=avnadmin</li>
+		<li>DB_PASSWORD=heslo_databaze</li>
+	</ul>
+	<h4>Vytvoření tabulek v databázi : </h4> 
+	<h5>php artisan migrate</h5>
+	<h4>Spuštění seedů a naplnění databáze výchozími daty : </h4> 
+	<h5>php artisan db:seed</h5>
 </ul>
 
 <h2>Známé problémy</h2>

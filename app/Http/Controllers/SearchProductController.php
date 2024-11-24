@@ -65,18 +65,4 @@ class SearchProductController extends Controller
     }
 
 
-    // public function priceFilter(Request $request)
-    // {
-    //     $query = Product::query();
-
-    //     // Сортування за ціною
-    //     if ($request->filled('sort_order')) {
-    //         $query->orderBy('price', $request->input('sort_order') === 'desc' ? 'desc' : 'asc');
-    //     }
-
-    //     // Отримання продуктів
-    //     $products = $query->get();
-
-    //     return view('search', compact('products'));
-    // }
 }
