@@ -24,8 +24,8 @@ class AppServiceProvider extends ServiceProvider
 //         if (app()->environment('production')) {
 //             URL::forceScheme('https');
 //         }
-            if (env('APP_ENV') !== 'local') { // HTTPS працюватиме тільки для продакшн середовища
-                URL::forceScheme('https');
-            }
+            // if (env('APP_ENV') !== 'local') { // HTTPS працюватиме тільки для продакшн середовища
+            //     URL::forceScheme('https');
+            // }
     }
 }

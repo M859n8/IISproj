@@ -136,7 +136,7 @@
         }
 
         
-        #self-picking-form {
+        .self-picking-form {
             max-width: 300px; 
             margin: 10px 0;
             padding: 10px;
@@ -146,9 +146,9 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        #self-picking-form input[type="text"],
-        #self-picking-form input[type="datetime-local"],
-        #self-picking-form button {
+        .self-picking-form input[type="text"],
+        .self-picking-form input[type="datetime-local"],
+        .self-picking-form button {
             width: 100%;
             padding: 8px;
             margin-top: 5px;
@@ -158,19 +158,19 @@
         }
 
         /* Button "Start Event" */
-        #self-picking-form button {
+        .self-picking-form button {
             background-color: #629170;
             color: #fff;
             cursor: pointer;
             margin-top: 10px;
         }
 
-        #self-picking-form button:hover {
+        .self-picking-form button:hover {
             background-color: #50735b;
         }
 
         /* Button "Create Self Picking" */
-        #create-self-picking-button {
+        .create-self-picking-button {
             background-color: #629170;
             color: #fff;
             padding: 8px 12px;
@@ -182,7 +182,7 @@
             margin-top: 10px;
         }
 
-        #create-self-picking-button:hover {
+        .create-self-picking-button:hover {
             background-color: #50735b;
         }
 
@@ -384,9 +384,9 @@
                             @if($product->selfPicking)
                                 <span>In Progress</span>
                             @else
-                                <button type="button" id="create-self-picking-button">Create Self Picking</button>
+                                <button type="button" class="create-self-picking-button">Create Self Picking</button>
 
-                                <div id="self-picking-form" style="display:none;">
+                                <div class="self-picking-form" style="display:none;">
                                     <form action="{{ route('selfpicking.start', $product->id) }}" method="POST">
                                         @csrf
                                         <label for="address">Address:</label>
@@ -435,19 +435,23 @@
 </html>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Get the button and the form
-        const button = document.getElementById('create-self-picking-button');
-        const form = document.getElementById('self-picking-form');
+        // Get all button and hidden form
+        const buttons = document.querySelectorAll('.create-self-picking-button');
+        const forms = document.querySelectorAll('.self-picking-form');
 
-        button.addEventListener('click', function(e) {
-            if (form.style.display === 'none' || form.style.display === '') {
-                form.style.display = 'block'; // Show form
-                button.textContent = 'Hide'; // Change text in button
-            } else {
-                form.style.display = 'none'; // Hide form
-                button.textContent = 'Create Self Picking'; 
-            }
+        // Add event listener for all button
+        buttons.forEach((button, index) => {
+            button.addEventListener('click', function(e) {
+                const form = forms[index]; 
+
+                if (form.style.display === 'none' || form.style.display === '') {
+                    form.style.display = 'block'; // Show form
+                    button.textContent = 'Hide'; // Change text of button
+                } else {
+                    form.style.display = 'none'; // Hide form
+                    button.textContent = 'Create Self Picking'; 
+                }
+            });
         });
-    
     });
 </script>
