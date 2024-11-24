@@ -4,6 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/*
+* Migration for table Category
+*/
 return new class extends Migration
 {
     /**
@@ -15,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('status');
-            $table->unsignedBigInteger('parent_id')->nullable(); // Для підкатегорій
+            $table->unsignedBigInteger('parent_id')->nullable(); // For subcategories
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade'); // Self-referencing foreign key
             $table->timestamps();
         });

@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            margin: 0; /* Прибираємо відступи у всьому документі */
+            margin: 0; 
             padding: 0;
             box-sizing: border-box;
-            overflow-x: hidden; /* Прибираємо горизонтальне прокручування */
+            overflow-x: hidden; 
         }
 
         header {
@@ -21,7 +21,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #629170; /* Зелений колір для меню */
+            background-color: #629170; 
             z-index: 1000;
         }
         .horizontal-list {
@@ -32,15 +32,14 @@
         }
         .menu-items {
             display: flex;
-            gap: 15px; /* Відстань між пунктами меню */
+            gap: 15px; 
         }
         .menu-items li,
         .logout-button li {
-            /*list-style: none;*/
             margin: 0 15px;
         }
         .horizontal-list a {
-            color: #c4cfc9; /* Замінив білий на сіруватий */
+            color: #c4cfc9;
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
@@ -66,7 +65,7 @@
 
 
         main {
-            margin-top: 100px; /* Відступ для закріпленого меню */
+            margin-top: 100px; 
             padding: 20px;
             background-color: #f4f4f4;
         }
@@ -127,6 +126,7 @@
     </style>
 </head>
 <body>
+    <!-- Menu -->
     <header>
         <nav>
             <ul class="horizontal-list">

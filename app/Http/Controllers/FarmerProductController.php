@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 use App\Models\Product;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+/*
+* Controller for change and delete farmer`s product
+*/
 class FarmerProductController extends Controller
 {
+    // Get the product we will editing
     public function edit($id)
     {
         $product = Product::findOrFail($id);
 
-        // // Перевірка, чи це продукт користувача
-        // if ($product->user_id !== Auth::id()) {
-        //     return redirect()->route('profile')->with('error', 'You are not authorized to edit this product.');
-        // }
-
         return view('editproduct', compact('product'));
     }
 
+    // Update value of product
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -29,11 +28,6 @@ class FarmerProductController extends Controller
 
         $product = Product::findOrFail($id);
 
-        // Перевірка, чи це продукт користувача
-        // if ($product->user_id !== Auth::id()) {
-        //     return redirect()->route('profile')->with('error', 'You are not authorized to update this product.');
-        // }
-
         $product->update([
             'name' => $request->name,
             'price' => $request->price,
@@ -43,19 +37,15 @@ class FarmerProductController extends Controller
         return redirect()->route('profile')->with('success', 'Product updated successfully!');
     }
 
+    // Delete product from DB
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
 
-        // Перевірка, чи це продукт користувача
-        if ($product->user_id !== Auth::id()) {
-            return redirect()->route('profile')->with('error', 'You are not authorized to delete this product.');
-        }
-
-        // Видалення зв'язків
+        // Delete connections
         $product->categories()->detach();
 
-        // Видалення продукту
+        // Delete product
         $product->delete();
 
         return redirect()->route('profile')->with('success', 'Product deleted successfully!');

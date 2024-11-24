@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+/*
+* Model for table self_picking
+*/
 class SelfPicking extends Model
 {
     use HasFactory;
@@ -13,16 +15,18 @@ class SelfPicking extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class);  // 1:1 зв'язок з продуктом
+        return $this->belongsTo(Product::class);  // 1:1 relationship with the product
     }
 
+    // Connection with user(farmer) that start this self-picking
     public function farmer()
     {
-        return $this->belongsTo(User::class, 'farmer_id');  // Н:1 зв'язок з фермером (юзер)
+        return $this->belongsTo(User::class, 'user_id');  
     }
 
+    // Connection with customers, that added this self-picking to their events
     public function customers()
     {
-        return $this->belongsToMany(User::class, 'self_picking_user');  // Н:Н зв'язок з покупцями
+        return $this->belongsToMany(User::class, 'self_picking_user'); 
     }
 }

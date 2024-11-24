@@ -117,6 +117,7 @@
     </style>
 </head>
 <body>
+    <!-- Menu -->
     <header>
         <nav>
             <ul class="horizontal-list">
@@ -143,6 +144,7 @@
         <section>
             <h2>Pending Categories</h2>
 
+            <!-- Get the message of successful delete or approve -->
             @if(session('success'))
                 <div style="color: green; margin-top: 10px;">
                     {{ session('success') }}
@@ -158,6 +160,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Table for categories -->
                     @foreach($categories as $category)
                         <tr>
                             <td>{{ $category->name }}</td>

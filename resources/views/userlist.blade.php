@@ -33,15 +33,14 @@
         }
         .menu-items {
             display: flex;
-            gap: 15px; /* Відстань між пунктами меню */
+            gap: 15px; 
         }
         .menu-items li,
         .logout-button li {
-            /*list-style: none;*/
             margin: 0 15px;
         }
         .horizontal-list a {
-            color: #c4cfc9; /* Замінив білий на сіруватий */
+            color: #c4cfc9; 
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
@@ -125,6 +124,7 @@
     </style>
 </head>
 <body>
+    <!-- Menu -->
     <header>
         <nav>
             <ul class="horizontal-list">

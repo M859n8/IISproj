@@ -14,7 +14,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #629170; /* Замінив зелений на сіро-зелений */
+            background-color: #629170; 
 
             z-index: 1000;
         }
@@ -30,7 +30,7 @@
         }
 
         .horizontal-list a {
-            color:#c4cfc9; /* Замінив білий на сіруватий */
+            color:#c4cfc9; 
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
@@ -40,11 +40,8 @@
             color: white;
         }
 
-
-
-        /* Стилі для реєстраційної форми */
         .container {
-            margin-top: 150px; /* Відступ для закріпленого меню */
+            margin-top: 150px; 
             width: 50%;
             margin: 80px auto;
             padding: 20px;
@@ -95,23 +92,23 @@
         }
 
         .text-right {
-            text-align: right; /* Вирівнювання тексту вправо */
+            text-align: right; 
         }
 
         #login-link {
-            color: #629170; /* Зелений колір */
-            text-decoration: underline; /* Підкреслення */
-            font-weight: bold; /* Жирний текст */
-            cursor: pointer; /* Курсор при наведенні */
+            color: #629170;
+            text-decoration: underline; 
+            font-weight: bold; 
+            cursor: pointer; 
         }
 
         #login-link:hover {
-            color: #50735b; /* Темніший зелений при наведенні */
+            color: #50735b; 
         }
     </style>
 </head>
 <body>
-
+<!-- Menu -->
 <header>
     <nav>
         <ul class="horizontal-list">
@@ -139,9 +136,9 @@
 
 <div class="container">
     <h2>Create New Category</h2>
-
+    <!-- Get the message of successful action -->
     @if(session('success'))
-        <p class="text-success">{{ session('success') }}</p>
+        <p style="color: green;">{{ session('success') }}</p>
     @endif
 
     <form action="{{ route('createCategory') }}" method="POST">
@@ -168,6 +165,7 @@
                 name="parent_id" 
                 style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px;"
             >
+            <!-- Get the list of possible categories -->
                 <option value="">No Parent</option>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>

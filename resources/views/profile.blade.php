@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            margin: 0; /* Прибираємо відступи у всьому документі */
+            margin: 0; 
             padding: 0;
             box-sizing: border-box;
-            overflow-x: hidden; /* Прибираємо горизонтальне прокручування */
+            overflow-x: hidden; 
         }
 
         header {
@@ -21,7 +21,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #629170; /* Зелений колір для меню */
+            background-color: #629170; 
             z-index: 1000;
         }
 
@@ -33,16 +33,15 @@
         }
         .menu-items {
             display: flex;
-            gap: 15px; /* Відстань між пунктами меню */
+            gap: 15px; 
         }
         .menu-items li,
         .logout-button li {
-            /*list-style: none;*/
             margin: 0 15px;
         }
 
         .horizontal-list a {
-            color: #c4cfc9; /* Замінив білий на сіруватий */
+            color: #c4cfc9; 
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
@@ -56,7 +55,7 @@
         }
 
         main {
-            margin-top: 100px; /* Відступ для закріпленого меню */
+            margin-top: 100px; 
             padding: 20px;
             background-color: #f4f4f4;
         }
@@ -136,9 +135,9 @@
             background-color: #0056b3;
         }
 
-        /* Стилі для форми в таблиці */
+        
         #self-picking-form {
-            max-width: 300px; /* Максимальна ширина форми */
+            max-width: 300px; 
             margin: 10px 0;
             padding: 10px;
             background-color: #f9f9f9;
@@ -147,7 +146,6 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* Загальні стилі для інпутів і кнопок у формі */
         #self-picking-form input[type="text"],
         #self-picking-form input[type="datetime-local"],
         #self-picking-form button {
@@ -159,7 +157,7 @@
             font-size: 14px;
         }
 
-        /* Кнопка "Start Event" */
+        /* Button "Start Event" */
         #self-picking-form button {
             background-color: #629170;
             color: #fff;
@@ -167,12 +165,11 @@
             margin-top: 10px;
         }
 
-        /* Ховер для кнопки */
         #self-picking-form button:hover {
             background-color: #50735b;
         }
 
-        /* Стилі для кнопки "Create Self Picking" */
+        /* Button "Create Self Picking" */
         #create-self-picking-button {
             background-color: #629170;
             color: #fff;
@@ -185,7 +182,6 @@
             margin-top: 10px;
         }
 
-        /* Ховер для кнопки "Create Self Picking" */
         #create-self-picking-button:hover {
             background-color: #50735b;
         }
@@ -195,6 +191,7 @@
     </style>
 </head>
 <body>
+    <!-- Menu -->
     <header>
         <nav>
             <ul class="horizontal-list">
@@ -228,6 +225,7 @@
 
 
     <main>
+        <!-- Section with information about user -->
         <section>
             <h2>Profile Information</h2>
             <p><strong>Surname:</strong> {{ Auth::user()->surname }}</p>
@@ -243,7 +241,7 @@
 
         @auth
         @if(Auth::user()->role !== 'Admin')
-
+        <!-- Section with orders -->
         <section class="order-section">
             <h2>Your Orders</h2>
             @if($orders->isEmpty())
@@ -266,6 +264,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Show list of orders -->
                         @foreach($orders as $index => $order)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
@@ -287,6 +286,7 @@
                                         @endif
                                     </td>
                                 @endif
+
                                 @if($userType === 'Customer')
                                     <td>
                                         @if($order->status === 'prepared')
@@ -315,8 +315,11 @@
         </section>
         @endif
         @endauth
+
+
         @auth
         @if(Auth::user()->role === 'Customer')
+        <!-- Section for self pickin events for customer -->
         <section class="selfpicking-section">
             <h2>Your Self-Picking events</h2>
 
@@ -337,6 +340,8 @@
         @endif
         @endauth
 
+
+        <!-- Section for editing profile -->
         <section>
             <h2>Edit Profile</h2>
             <form action="{{ route('profile.update') }}" method="POST">
@@ -352,8 +357,11 @@
                 <button type="submit">Update Profile</button>
             </form>
         </section>
+
+        
         @auth
         @if(Auth::user()->role === 'Farmer')
+        <!-- Section for list of products for farmer -->
         <section class="order-section">
             <h2>My Products</h2>
             <table class="products-table">
@@ -416,14 +424,6 @@
         @endif
         @endauth
 
-
-        <!-- <section>
-            <h2>Logout</h2>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit">Logout</button>
-            </form>
-        </section> -->
     </main>
 
 
@@ -435,18 +435,17 @@
 </html>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Отримуємо кнопку і форму
+        // Get the button and the form
         const button = document.getElementById('create-self-picking-button');
         const form = document.getElementById('self-picking-form');
 
-        // Додаємо обробник події для кнопки
         button.addEventListener('click', function(e) {
             if (form.style.display === 'none' || form.style.display === '') {
-                form.style.display = 'block'; // Показуємо форму
-                button.textContent = 'Hide'; // Змінюємо текст кнопки
+                form.style.display = 'block'; // Show form
+                button.textContent = 'Hide'; // Change text in button
             } else {
-                form.style.display = 'none'; // Ховаємо форму
-                button.textContent = 'Create Self Picking'; // Повертаємо текст кнопки
+                form.style.display = 'none'; // Hide form
+                button.textContent = 'Create Self Picking'; 
             }
         });
     

@@ -16,7 +16,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #629170; /* Замінив зелений на сіро-зелений */
+            background-color: #629170; 
 
             z-index: 1000;
         }
@@ -32,7 +32,7 @@
         }
 
         .horizontal-list a {
-            color:#c4cfc9; /* Замінив білий на сіруватий */
+            color:#c4cfc9;
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
@@ -42,11 +42,8 @@
             color: white;
         }
 
-
-
-        /* Стилі для реєстраційної форми */
         .container {
-            margin-top: 150px; /* Відступ для закріпленого меню */
+            margin-top: 150px; 
             width: 50%;
             margin: 80px auto;
             padding: 20px;
@@ -97,18 +94,18 @@
         }
 
         .text-right {
-            text-align: right; /* Вирівнювання тексту вправо */
+            text-align: right;
         }
 
         #login-link {
-            color: #629170; /* Зелений колір */
-            text-decoration: underline; /* Підкреслення */
-            font-weight: bold; /* Жирний текст */
-            cursor: pointer; /* Курсор при наведенні */
+            color: #629170;
+            text-decoration: underline; 
+            font-weight: bold; 
+            cursor: pointer; 
         }
 
         #login-link:hover {
-            color: #50735b; /* Темніший зелений при наведенні */
+            color: #50735b; 
         }
 
     </style>
@@ -116,7 +113,7 @@
 
 <body>
 
-    <!-- Закріплене меню -->
+    <!-- Menu-->
     <header>
         <nav>
             <ul class="horizontal-list">
@@ -130,9 +127,6 @@
 
         <form id="user-form" action="{{ route('regProfile') }}" method="POST">
             @csrf
-
-
-            <!-- Фамілія -->
             <div class="form-group">
                 <label for="name">Surname </label>
 
@@ -142,7 +136,6 @@
                 @enderror
             </div>
 
-            <!-- Ім'я -->
             <div class="form-group">
                 <label for="name">Name *</label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus>
@@ -151,7 +144,6 @@
                 @enderror
             </div>
 
-            <!-- Електронна пошта -->
             <div class="form-group">
                 <label for="email">Email *</label>
                 <input type="email" name="email" id="email" value="{{ old('email') }}" required>
@@ -160,7 +152,6 @@
                 @enderror
             </div>
 
-            <!-- Пароль -->
             <div class="form-group">
                 <label for="password">Password *</label>
                 <input type="password" name="password" id="password" required>
@@ -169,7 +160,6 @@
                 @enderror
             </div>
 
-            <!-- Підтвердження пароля -->
             <div class="form-group">
                 <label for="password_confirmation">Confirm Password *</label>
                 <input type="password" name="password_confirmation" id="password_confirmation" required>
@@ -178,7 +168,6 @@
                 @enderror
             </div>
 
-            <!-- Роль -->
             <div class="form-group">
                 <label for="role">Role *</label>
                 <select name="role" id="role" required>
@@ -190,28 +179,16 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-
             <p> * mandatory fields</p>
 
-            <!-- Кнопка реєстрації -->
             <div class="form-group">
                 <button type="submit" class="btn">Register</button>
             </div>
-
-            <!-- Кнопка логіну
-            <div class="form-group">
-                <button type="button" id="login-btn" class="btn btn-secondary">Login</button>
-            </div> -->
         </form>
-        <!-- Кнопка логіну -->
+        
         <div class="form-group text-right">
             <a href="{{ route('login') }}" id="login-link">Login</a>
         </div>
-        <!-- <script>
-            document.getElementById('login-btn').addEventListener('click', function() {
-                window.location.href = "{{ route('login') }}"; // Перенаправлення на сторінку логіну
-            });
-        </script> -->
     </div>
 </body>
 </html>

@@ -4,43 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
+/*
+* Controller for page created specially for administrator
+*/
 class AdminPageController extends Controller
 {
-    // Відображення списку користувачів
+    // Show list of users
     public function index()
     {
-        $users = User::all(); // Отримати всіх користувачів
+        $users = User::all(); // Get all users
         return view('userlist', compact('users'));
     }
 
-    // Видалення користувача
+    // Delete user from database
     public function destroy($id)
     {
-        $user = User::findOrFail($id); // Знайти користувача або викинути помилку
-        $user->delete(); // Видалити користувача
+        $user = User::findOrFail($id); // Search for this user in DB
+        $user->delete(); 
 
         return redirect()->route('users.list')->with('success', 'User deleted successfully.');
     }
 
-    // Відображення категорій, що чекають на схвалення
+    // Show the list of categories, that  waiting for approval
     public function showCategories()
     {
         $categories = Category::where('status', 'Not approved')->get();
         return view('categorylist', compact('categories'));
     }
 
-    // Схвалення категорії
+    // Approve category
     public function approveCategory($id)
     {
         $category = Category::findOrFail($id);
+        // Change status
         $category->update(['status' => 'Approved']);
 
         return redirect()->back()->with('success', 'Category approved successfully.');
     }
 
-    // Видалення категорії
+    // Delete category from DB
     public function deleteCategory($id)
     {
         $category = Category::findOrFail($id);

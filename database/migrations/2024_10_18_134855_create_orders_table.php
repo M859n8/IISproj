@@ -3,7 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+/*
+* Migration for table Orders
+*/
 return new class extends Migration
 {
     /**
@@ -11,13 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // НЕ ПРОПИСАНІ ЗВЯЗКИ
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['processing', 'prepared', 'completed'])->default('processing'); // Стан замовлення
-            $table->integer('quantity')->unsigned(); // Кількість одиниць продукту
+            $table->enum('status', ['processing', 'prepared', 'completed'])->default('processing'); // Status of order
+            $table->integer('quantity')->unsigned(); // Quantity of the ordered product
             $table->timestamps();
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade'); // Це додає колонку product_id та зовнішній ключ
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade'); 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }

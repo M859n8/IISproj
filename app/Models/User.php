@@ -2,15 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+/*
+* Model for table user
+*/
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    // use HasFactory, Notifiable;
     use Notifiable;
 
     /**
@@ -36,14 +34,16 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    // Connection between farmer and self-picking
     public function selfpickings()
     {
-        return $this->hasMany(SelfPicking::class);  // Н:1 зв'язок з self-picking (як фермер)
+        return $this->hasMany(SelfPicking::class);  
     }
 
+    // Connection between customer and self-picking
     public function events()
     {
-        return $this->belongsToMany(SelfPicking::class, 'self_picking_user');  // Н:Н зв'язок з self-picking (як покупець)
+        return $this->belongsToMany(SelfPicking::class, 'self_picking_user');  
     }
 
 }
