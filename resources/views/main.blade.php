@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- mk-->
 
 	<title>Green market</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
 
-        /* Загальні стилі */
         * {
             margin: 0;
             padding: 0;
@@ -24,7 +22,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #629170; /* Замінив зелений на сіро-зелений */
+            background-color: #629170; 
             padding: 15px 0;
             z-index: 1000;
         }
@@ -38,15 +36,14 @@
         }
         .menu-items {
             display: flex;
-            gap: 15px; /* Відстань між пунктами меню */
+            gap: 15px; 
         }
         .menu-items li,
         .logout-button li {
-            /*list-style: none;*/
             margin: 0 15px;
         }
         .horizontal-list a {
-            color: #c4cfc9; /* Замінив білий на сіруватий */
+            color: #c4cfc9; 
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
@@ -70,14 +67,14 @@
             background-color: #50735b;
         }
 
-        /* Стилі для назви сайту */
+        /* title */
         .site-title {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Висота на всю висоту вікна */
+            height: 100vh; 
             background-color: #333;
-            color: #aab3ae; /* Замінив білий на сіруватий */
+            color: #aab3ae; 
             text-align: center;
         }
 
@@ -90,7 +87,7 @@
     </style>
 </head>
 <body>
-    <!-- Закріплене меню -->
+    <!-- menu -->
     <header>
         <nav>
             <ul class="horizontal-list">
@@ -132,9 +129,8 @@
         </nav>
     </header>
 
-    <!-- Основний контент сторінки -->
+    <!-- main content -->
     <main>
-        <!-- Назва сайту по центру з окремим фоном -->
         <section class="site-title">
             <h1>Green Market</h1>
         </section>

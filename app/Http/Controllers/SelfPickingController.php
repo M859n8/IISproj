@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class SelfPickingController extends Controller
 {
+    //farmer starts self picking
     public function create(Request $request, $id)
     {
         $product = Product::findOrFail($id);
         
-        // Створення нової події SelfPicking
         $request->validate([
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
@@ -35,22 +35,21 @@ class SelfPickingController extends Controller
 
         return redirect()->back()->with('success', 'Self-picking event created.');
     }
-//mk
+
+    //user can subscribe on self picking
     public function subscribe($id)
     {
-        // Отримуємо поточного користувача
         $user = Auth::user();
 
-        // Перевіряємо, чи самозбір існує і ще не завершився
         $selfPicking = SelfPicking::where('id', $id)
             ->where('end_time', '>', now())
             ->first();
-
+        //check end time
         if (!$selfPicking) {
             return redirect()->back()->with('error', 'This self-picking is not available.');
         }
 
-        // Перевіряємо, чи користувач вже підписався
+        //check if user is already subscribed
         $alreadySubscribed = DB::table('self_picking_user')
             ->where('self_picking_id', $id)
             ->where('user_id', $user->id)
@@ -60,7 +59,7 @@ class SelfPickingController extends Controller
             return redirect()->back()->with('info', 'You are already subscribed to this self-picking.');
         }
 
-        // Додаємо запис у таблицю
+        //add to db
         DB::table('self_picking_user')->insert([
             'self_picking_id' => $id,
             'user_id' => $user->id,

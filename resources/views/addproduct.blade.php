@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<!-- mk-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add new product</title>
     <style>
@@ -16,7 +15,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #629170; /* Замінив зелений на сіро-зелений */
+            background-color: #629170; 
 
             z-index: 1000;
         }
@@ -29,15 +28,14 @@
         }
         .menu-items {
             display: flex;
-            gap: 15px; /* Відстань між пунктами меню */
+            gap: 15px;
         }
         .menu-items li,
         .logout-button li {
-            /*list-style: none;*/
             margin: 0 15px;
         }
         .horizontal-list a {
-            color: #c4cfc9; /* Замінив білий на сіруватий */
+            color: #c4cfc9; 
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
@@ -61,11 +59,9 @@
             background-color: #50735b;
         }
 
-
-
-        /* Стилі для реєстраційної форми */
+        /* add prodcut section */
         .container {
-            margin-top: 150px; /* Відступ для закріпленого меню */
+            margin-top: 150px; 
             width: 50%;
             margin: 80px auto;
             padding: 20px;
@@ -116,18 +112,18 @@
         }
 
         .text-right {
-            text-align: right; /* Вирівнювання тексту вправо */
+            text-align: right; 
         }
 
         #login-link {
-            color: #629170; /* Зелений колір */
-            text-decoration: underline; /* Підкреслення */
-            font-weight: bold; /* Жирний текст */
-            cursor: pointer; /* Курсор при наведенні */
+            color: #629170;
+            text-decoration: underline; 
+            font-weight: bold; 
+            cursor: pointer; 
         }
 
         #login-link:hover {
-            color: #50735b; /* Темніший зелений при наведенні */
+            color: #50735b; 
         }
 
 
@@ -136,7 +132,7 @@
 
 <body>
 
-    <!-- Закріплене меню -->
+    <!-- menu -->
     <header>
         <nav>
             <ul class="horizontal-list">
@@ -170,6 +166,7 @@
             </ul>
         </nav>
     </header>
+    <!-- create product section -->
     <div class="container">
         <h2>Add new product</h2>
 
@@ -191,10 +188,19 @@
                 <input type="text" id="description" name="description"  >
 
             </div>
+            <div class="form-group">
+                <label for="quantity">Quantity: *</label>
+                <input type="number" id="quantity" name="quantity" required  >
+
+            </div>
+            <div class="form-group">
+                <label for="unit">Unit: *</label>
+                <input type="text" id="unit" name="unit" required  >
+
+            </div>
 
             <div class="form-group">
                  <label for="category">Categories:</label>
-
 
                  <select id="category" name="category_id">
                      <option value="">Select category *</option>

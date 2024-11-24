@@ -1,5 +1,4 @@
 <?php
-//mk
 use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FarmerProductController;
@@ -11,112 +10,72 @@ use App\Http\Controllers\SelfPickingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 
+//mainpage show
 Route::get('/', function () {
     return view('main');
 });
-//маршрут з анонімною функцією , просто повертає певну в'юху
-
 Route::get('/', function () {
     return view('main');
 })->name('main');
 
-
-// Route::get('/addproduct', function () {
-//     return view('addproduct');
-// })->name('addproduct');
-
-
-Route::get('/search',[SearchProductController::class, 'search'])->name('search');
-
-
-//взаємодія з дб??
-// Route::get('/search/results', function () {
-//     $query = request('query'); // Отримуємо пошуковий запит із форми
-//     // Додай логіку для обробки пошукового запиту та повернення результатів.
-//     return view('search.results', ['query' => $query]); // Передаємо пошуковий запит у в'юху
-// })->name('search.results');
-// Route::get('/search/priceFilter', [SearchProductController::class, 'priceFilter'])->name('priceFilter');
-
-
-
-Route::get('/product/{id}', [ProductController::class, 'showProduct'])->name('productPage');
-Route::get('/addproduct', [ProductController::class, 'showCreateForm'])->name('addproduct'); //shows page
-Route::post('/addproduct', [ProductController::class, 'createProduct'])->name('createProduct'); //add product to db
-
-Route::post('/product/{id}', [OrderController::class, 'createOrder'])->name('createOrder');
-
-// Route::patch('/profile', [OrderController::class, 'updateOrderStatus'])->name('updateOrderStatus');
-// Route::get('/profile', [OrderController::class, 'updateOrderStatus'])->name('updateOrderStatus');
-
-
-
-// Route::get('/profile', function () {
-//     return view('profile'); // Сторінка профілю, якщо юзер в дб
-// })->name('profile');
-// Route::get('/profile', [RegistrationController::class, 'showProfile'])->name('profile');
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/profile', [RegistrationController::class, 'showProfile'])->name('profile');
-// });
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/profile', function () {
-//         return view('profile', ['user' => Auth::user()]);
-//     })->name('profile');
-// });
-
-// Route::get('/profile', function () {
-//     return view('profile');
-// })->name('profile')->middleware('auth');
-
-Route::get('/profile', [OrderController::class, 'showOrdersSelfPickings'])
-    ->name('profile')
-    ->middleware('auth');
-
-Route::post('/profile/update', [RegistrationController::class, 'update'])->name('profile.update');
-
+//register page show
 Route::get('/register', function () {
     return view('register');
 })->name('register');
-
+//login page show
 Route::get('/login', function () {
     return view('login');
 })->name('login');
+Route::post('/login', [LoginController::class, 'loginClick'])->name('loginClick'); //login button
 
-Route::post('/login', [LoginController::class, 'loginClick'])->name('loginClick');
+Route::post('/register', [RegistrationController::class, 'regProfile'])->name('regProfile'); //register button
 
-Route::post('/register', [RegistrationController::class, 'regProfile'])->name('regProfile');
+//search page show
+Route::get('/search',[SearchProductController::class, 'search'])->name('search');
+//product page show 
+Route::get('/product/{id}', [ProductController::class, 'showProduct'])->name('productPage');
+//shows page add product
+Route::get('/addproduct', [ProductController::class, 'showCreateForm'])->name('addproduct'); 
+//add product to db
+Route::post('/addproduct', [ProductController::class, 'createProduct'])->name('createProduct'); 
+//create an order with this product
+Route::post('/product/{id}', [OrderController::class, 'createOrder'])->name('createOrder');
 
-// Route::get('/search', function () {
-//     return view('search.search'); // Сторінка пошуку
-// })->name('search');
+//show profile page with required information
+Route::get('/profile', [OrderController::class, 'showOrdersSelfPickings'])
+    ->name('profile')
+    ->middleware('auth'); 
+//upd profile data
+Route::post('/profile/update', [RegistrationController::class, 'update'])->name('profile.update');
+//logout button
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout'); 
 
-
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout'); // Ще не настав час
-
-
-
-
+//userlist button (for admin)
 Route::get('/userlist', [AdminPageController::class, 'index'])->name('users.list');
-Route::delete('/userlist/{id}', [AdminPageController::class, 'destroy'])->name('users.destroy');
+//delete-user button 
+Route::delete('/userlist/{id}', [AdminPageController::class, 'destroy'])->name('users.destroy'); 
 
-
-Route::get('/products/{id}/edit', [FarmerProductController::class, 'edit'])->name('editproduct');
+//manipulation with products on user(farmer) page
+Route::get('/products/{id}/edit', [FarmerProductController::class, 'edit'])->name('editproduct'); 
 Route::put('/products/{id}', [FarmerProductController::class, 'update'])->name('products.update');
 Route::delete('/product/{id}', [FarmerProductController::class, 'destroy'])->name('products.destroy');
 
-Route::post('/self-picking/{id}/subscribe', [SelfPickingController::class, 'subscribe'])->name('self-picking.subscribe');
-
+//change order status on user(farmer) page
 Route::put('/orders/{id}/ready', [OrderController::class, 'statusPrepeared'])->name('orderReady');
+//farmer starts self picking 
+Route::post('/self-picking/{id}', [SelfPickingController::class, 'create'])->name('selfpicking.start');
 
+//subscribe on self picking for user(customer)
+Route::post('/self-picking/{id}/subscribe', [SelfPickingController::class, 'subscribe'])->name('self-picking.subscribe');
+//change order status on user(customer) page
 Route::post('/rate-product/{id}', [OrderController::class, 'rate'])->name('rateProduct');
 
+//for the "create(suggest) a category" page
 Route::get('/createcategory', [CategoryController::class, 'showCategories'])->name('createcategory');
 Route::post('/createcategory', [CategoryController::class, 'create'])->name('createCategory');
 
-
+//admin page for suggested categories management
 Route::get('/categories', [AdminPageController::class, 'showCategories'])->name('categorylist');
 Route::post('/categories/{id}/approve', [AdminPageController::class, 'approveCategory'])->name('categoriesApprove');
 Route::post('/categories/{id}/delete', [AdminPageController::class, 'deleteCategory'])->name('categoriesDelete');
 
-
-Route::post('/self-picking/{id}', [SelfPickingController::class, 'create'])->name('selfpicking.start');

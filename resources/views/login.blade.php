@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- mk-->
 
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -18,7 +17,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #629170; /* Замінив зелений на сіро-зелений */
+            background-color: #629170;
 
             z-index: 1000;
         }
@@ -34,7 +33,7 @@
         }
 
         .horizontal-list a {
-            color:#c4cfc9; /* Замінив білий на сіруватий */
+            color:#c4cfc9; 
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
@@ -46,9 +45,9 @@
 
 
 
-        /* Стилі для реєстраційної форми */
+        /* ligin section */
         .container {
-            margin-top: 150px; /* Відступ для закріпленого меню */
+            margin-top: 150px;
             width: 50%;
             margin: 80px auto;
             padding: 20px;
@@ -105,7 +104,7 @@
 
 <body>
 
-    <!-- Закріплене меню -->
+    <!-- menu -->
     <header>
         <nav>
             <ul class="horizontal-list">
@@ -115,13 +114,13 @@
             </ul>
         </nav>
     </header>
+    <!-- login form -->
     <div class="container">
         <h2>User Authentication</h2>
 
         <form action="{{ route('loginClick') }}" method="POST">
             @csrf
 
-            <!-- Електронна пошта -->
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" value="{{ old('email') }}" required>
@@ -130,7 +129,6 @@
                 @enderror
             </div>
 
-            <!-- Пароль -->
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" required>
@@ -139,7 +137,6 @@
                 @enderror
             </div>
 
-            <!-- Кнопка логіну -->
             <div class="form-group">
                 <button type="submit" class="btn">Login</button>
             </div>

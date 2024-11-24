@@ -15,11 +15,11 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'surname' => 'Kybil',
-            'name' => 'Vlada',
+            'surname' => 'Doe',
+            'name' => 'John',
             'email' => 'admin@example.com',
-            'password' => Hash::make('adminpassword'), // Зашифрований пароль
-            'role' => 'Admin', // Роль Адміністратора
+            'password' => Hash::make('adminpassword'), 
+            'role' => 'Admin', 
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -35,19 +35,19 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'surname' => 'Kucher',
-            'name' => 'Marina',
-            'email' => 'marina@example.com',
-            'password' => Hash::make('123456'),
+            'surname' => 'Smith',
+            'name' => 'Jane',
+            'email' => 'farmer@example.com',
+            'password' => Hash::make('123456pass'),
             'role' => 'Farmer',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('users')->insert([
-            'surname' => 'Kr',
-            'name' => 'Maa',
+            'surname' => 'Connor',
+            'name' => 'Sara',
             'email' => 'customer@example.com',
-            'password' => Hash::make('123456'),
+            'password' => Hash::make('123456pass'),
             'role' => 'Customer',
             'created_at' => now(),
             'updated_at' => now(),
