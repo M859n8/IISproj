@@ -42,9 +42,6 @@ class FarmerProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        // Delete connections
-        $product->categories()->detach();
-
         // Delete product
         $product->delete();
 
