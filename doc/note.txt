@@ -1,0 +1,28 @@
+	app - основна логіка . включкно з моделями, конторлерами
+bootstrap - рендерінг? і коніфгураційні фацли (спитати в джіпіті)
+	config - конфігураційні файли, конект до датабази 
+	database - міграції датабази, сеед
+	public - цсс, ДЖскрипт, фоки, також початковий індекс файл
+	resources - (спитати в джіпіті). Our application’s raw, uncompiled assets, such as Blade templates, Sass, and JavaScript, are stored here.
+	routes -  Laravel’s routing configuration (спитати? нам не потрібно ?)
+	storage - Temporary and cache files, (що такого зберігається тут, що не може зберігатися в базі даних?)
+	vendor - залежності, всі завантажені бібліотеки будуть тут 
+
+## Commands
+php artisan serve  //start the proj
+http://localhost:8000/   // open link
+
+php artisan migrate  //створить таблиці
+php artisan db:seed  //seeders
+php artisan migrate:fresh --seed //все одразу
+php artisan migrate:reset
+
+php artisan make:controller OrderController
+
+git rm --cached .env  //прибрати з кешу гіт
+
+
+
+
+
+
