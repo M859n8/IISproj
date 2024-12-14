@@ -4,4 +4,8 @@ Web application for buying and selling products. registration is possible under 
 
 ### Authors : Kucher Maryna, Bilyk Vladyslava.
 
-## [Available at the link.](https://compatible-terra-vut-a8625708.koyeb.app/)
+### [Web application is available at the link.](https://compatible-terra-vut-a8625708.koyeb.app/)
+
+[Video](https://www.youtube.com/watch?v=ya8kqSgZ3gA&ab_channel=Vladyslava) about the main features of the application.
+
+Evaluation : 23/30
